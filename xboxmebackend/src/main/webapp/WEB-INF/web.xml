@@ -14,8 +14,8 @@
         <init-param>
             <param-name>services</param-name>
             <param-value>com.ramogi.xbox.backend.RegistrationEndpoint,
-                com.ramogi.xbox.backend.MessagingEndpoint
-            </param-value>
+                com.ramogi.xbox.backend.MessagingEndpoint,
+                com.ramogi.xbox.backend.GamersLocationEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
