@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -19,6 +21,9 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.ramogi.xbox.backend.gamersLocationApi.model.GamersLocation;
+
 
 /**
  * Activity to demonstrate basic retrieval of the Google user's ID, email address, and basic
@@ -39,6 +44,12 @@ public class MainActivity extends AppCompatActivity implements
     private Location mLastLocation, mSavedLocation;
     private double mylat,mylong;
     private static final String KEY_LOCATION = "location";
+    private String currentUserEmail;
+    private String CurrentUserDisplayName;
+    private GoogleAccountCredential credential;
+    //private InsertPlus insertPlus;
+    private GamersLocation gamersLocation;
+    private EditText mGamerTagInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements
         mGamerTagTextView = (TextView) findViewById(R.id.gamertagTextView);
         mLatxTextView = (TextView) findViewById(R.id.latxTextView);
         mLongyTextView = (TextView) findViewById(R.id.longyTextView);
+        mGamerTagInput = (EditText) findViewById(R.id.gamerTagInput);
 
 
         // Button listeners
@@ -58,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.disconnect_button).setOnClickListener(this);
         findViewById(R.id.locationbtn).setOnClickListener(this);
+
+        gamersLocation = new GamersLocation();
+
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
@@ -183,10 +198,6 @@ public class MainActivity extends AppCompatActivity implements
 
             }
 
-
-
-
-
             if(mLastLocation == null){
                 Log.d("handle signin result ", "mlastlocation is null");
 
@@ -218,7 +229,12 @@ public class MainActivity extends AppCompatActivity implements
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-            mDetailsTextView.setText( acct.getEmail());
+            mDetailsTextView.setText(acct.getEmail());
+            setCurrentUserEmail(acct.getEmail());
+            setCurrentUserDisplayName(acct.getDisplayName());
+            credential =
+                    GoogleAccountCredential.usingAudience(this,"server:client_id:"+Constants.WEB_CLIENT_ID);
+            setAccountName(acct.getEmail());
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
@@ -226,6 +242,8 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
     // [END handleSignInResult]
+
+
 
     @Override
     public void onConnected(Bundle connectionHint) {
@@ -253,8 +271,6 @@ public class MainActivity extends AppCompatActivity implements
                 mLongyTextView.setText(""+mylong);
             }
         }
-
-
     }
 
     // [START signIn]
@@ -337,6 +353,29 @@ public class MainActivity extends AppCompatActivity implements
 
     private void uploadLocation(){
 
+        //Toast.makeText(this,"updatelocation()",Toast.LENGTH_LONG).show();
+
+        String myGamerTag = mGamerTagInput.getText().toString().trim();
+
+        Log.i("upload location ", " " + getCurrentUserDisplayName() + " " + getCurrentUserEmail() +
+                " " + mylat + " " + mylong);
+
+        gamersLocation.setEmail(getCurrentUserEmail());
+        gamersLocation.setDisplayname(getCurrentUserDisplayName());
+        gamersLocation.setLatx(mylat);
+        gamersLocation.setLongy(mylong);
+        if(!(myGamerTag.isEmpty())) {
+            gamersLocation.setGamertag(myGamerTag);
+        }
+        else {
+            gamersLocation.setGamertag("Anonymous");
+        }
+
+        InsertPlus insertPlus = new InsertPlus(gamersLocation,getApplicationContext(),getCredential());
+        insertPlus.execute();
+
+        Toast.makeText(this,"updated",Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -352,6 +391,7 @@ public class MainActivity extends AppCompatActivity implements
                 revokeAccess();
                 break;
             case R.id.locationbtn:
+                //Toast.makeText(this,"updated", Toast.LENGTH_SHORT).show();
                 uploadLocation();
                 break;
         }
@@ -386,6 +426,40 @@ public class MainActivity extends AppCompatActivity implements
         // We call connect() to attempt to re-establish the connection or get a
         // ConnectionResult that we can attempt to resolve.
         mGoogleApiClient.connect();
+    }
+
+    // setAccountName definition
+    private void setAccountName(String accountName) {
+
+        credential.setSelectedAccountName(accountName);
+        //accountCredentials.add(credential);
+
+        setCredential(credential);
+
+    }
+
+    public String getCurrentUserDisplayName() {
+        return CurrentUserDisplayName;
+    }
+
+    public void setCurrentUserDisplayName(String currentUserDisplayName) {
+        CurrentUserDisplayName = currentUserDisplayName;
+    }
+
+    public String getCurrentUserEmail() {
+        return currentUserEmail;
+    }
+
+    public void setCurrentUserEmail(String currentUserEmail) {
+        this.currentUserEmail = currentUserEmail;
+    }
+
+    public GoogleAccountCredential getCredential() {
+        return credential;
+    }
+
+    public void setCredential(GoogleAccountCredential credential) {
+        this.credential = credential;
     }
 
 }
