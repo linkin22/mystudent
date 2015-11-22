@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/BaseActivity.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/CallBackImage.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/ImagePlusDownload.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/MarkerManager.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/MultiDrawable.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/Utility.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/Cluster.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/ClusterItem.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/ClusterManager.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/Algorithm.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/GridBasedAlgorithm.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/NonHierarchicalDistanceBasedAlgorithm.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/PreCachingAlgorithmDecorator.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/StaticCluster.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/Cluster.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/ClusterItem.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/ClusterManager.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/algo/Algorithm.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/algo/GridBasedAlgorithm.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/algo/NonHierarchicalDistanceBasedAlgorithm.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/algo/PreCachingAlgorithmDecorator.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/algo/StaticCluster.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/view/ClusterRenderer.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/algo/clustering/view/DefaultClusterRenderer.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/view/ClusterRenderer.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/clustering/view/DefaultClusterRenderer.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/geometry/Bounds.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/geometry/Point.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/geometry/geometry/Bounds.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/geometry/geometry/Point.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/heatmaps/Gradient.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/heatmaps/HeatmapTileProvider.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/heatmaps/WeightedLatLng.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/model/MyItem.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/model/Person.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/projection/Point.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/projection/SphericalMercatorProjection.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/quadtree/PointQuadTree.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/ui/BubbleDrawable.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/ui/BubbleIconFactory.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/ui/IconGenerator.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/ui/RotationLayout.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/ramogi/xboxme/ui/SquareTextView.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/bubble_mask.9.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/bubble_shadow.9.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/gran.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/john.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/location.xml" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/mechanic.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/mshule.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ruth.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/shagz.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/signbutton.xml" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/stefan.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/teacher.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/turtle.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/walter.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/yeats.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/map.xml" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/multi_profile.xml" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/text_bubble.xml" charset="windows-1252" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

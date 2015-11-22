@@ -47,11 +47,12 @@ public class MainActivity extends AppCompatActivity implements
     private static final String KEY_LOCATION = "location";
     private String currentUserEmail;
     private String CurrentUserDisplayName;
-    private Uri myphoto;
+    private String myphoto;
     private GoogleAccountCredential credential;
     //private InsertPlus insertPlus;
     private GamersLocation gamersLocation;
     private EditText mGamerTagInput;
+    private Intent detailIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements
         findViewById(R.id.locationbtn).setOnClickListener(this);
 
         gamersLocation = new GamersLocation();
-
+        detailIntent = new Intent(getApplicationContext(), CustomMarker.class);
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
@@ -234,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements
             mDetailsTextView.setText(acct.getEmail());
             setCurrentUserEmail(acct.getEmail());
             setCurrentUserDisplayName(acct.getDisplayName());
-            //setMyphoto(acct.getPhotoUrl());
+            setMyphoto(acct.getPhotoUrl().getPath());
             credential =
                     GoogleAccountCredential.usingAudience(this,"server:client_id:"+Constants.WEB_CLIENT_ID);
             setAccountName(acct.getEmail());
@@ -361,12 +362,13 @@ public class MainActivity extends AppCompatActivity implements
         String myGamerTag = mGamerTagInput.getText().toString().trim();
 
         Log.i("upload location ", " " + getCurrentUserDisplayName() + " " + getCurrentUserEmail() +
-                " " + mylat + " " + mylong);
+                " " + mylat + " " + mylong +" "+getMyphoto());
 
         gamersLocation.setEmail(getCurrentUserEmail());
         gamersLocation.setDisplayname(getCurrentUserDisplayName());
         gamersLocation.setLatx(mylat);
         gamersLocation.setLongy(mylong);
+        gamersLocation.setPhotourl(getMyphoto());
         if(!(myGamerTag.isEmpty())) {
             gamersLocation.setGamertag(myGamerTag);
         }
@@ -378,6 +380,13 @@ public class MainActivity extends AppCompatActivity implements
         insertPlus.execute();
 
         Toast.makeText(this,"updated",Toast.LENGTH_LONG).show();
+
+        detailIntent.putExtra("userdisplayname", getCurrentUserDisplayName());
+        detailIntent.putExtra("mylat",mylat);
+        detailIntent.putExtra("mylong",mylong);
+        detailIntent.putExtra("usermail", getCurrentUserEmail());
+        detailIntent.putExtra("urlphoto", getMyphoto());
+        startActivity(detailIntent);
 
     }
 
@@ -465,11 +474,11 @@ public class MainActivity extends AppCompatActivity implements
         this.credential = credential;
     }
 
-    public Uri getMyphoto() {
+    public String getMyphoto() {
         return myphoto;
     }
 
-    public void setMyphoto(Uri myphoto) {
+    public void setMyphoto(String myphoto) {
         this.myphoto = myphoto;
     }
 

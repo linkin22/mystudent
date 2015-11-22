@@ -19,7 +19,7 @@ public class GamersLocation {
     private double latx;
     private double longy;
     private String gamertag;
-    //private Uri
+    private String photourl;
 
     public String getEmail() {
         return email;
@@ -67,5 +67,13 @@ public class GamersLocation {
 
     public void setGamertag(String gamertag) {
         this.gamertag = gamertag;
+    }
+
+    public String getPhotourl() {
+        return photourl;
+    }
+
+    public void setPhotourl(String photourl) {
+        this.photourl = photourl;
     }
 }

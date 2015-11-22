@@ -67,8 +67,9 @@ public class QueryGamers extends AsyncTask<Void, Void, CollectionResponseGamersL
     protected void onPostExecute(CollectionResponseGamersLocation gamersLocations) {
 
         // Do something with the result.
-        ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        //ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         List<GamersLocation> _list = gamersLocations.getItems();
+        /*
         for (GamersLocation gamersLocation : _list) {
             HashMap<String, Object> item = new HashMap<String, Object>();
             item.put("email", gamersLocation.getEmail());
@@ -79,6 +80,7 @@ public class QueryGamers extends AsyncTask<Void, Void, CollectionResponseGamersL
             item.put("time", gamersLocation.getTxntime());
             list.add(item);
         }
-        queryPlusCallBack.querycomplete(list);
+        */
+        queryPlusCallBack.querycomplete(_list);
     }
 }
