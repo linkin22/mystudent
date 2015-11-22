@@ -2,6 +2,7 @@ package com.ramogi.xboxme;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String KEY_LOCATION = "location";
     private String currentUserEmail;
     private String CurrentUserDisplayName;
+    private Uri myphoto;
     private GoogleAccountCredential credential;
     //private InsertPlus insertPlus;
     private GamersLocation gamersLocation;
@@ -232,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements
             mDetailsTextView.setText(acct.getEmail());
             setCurrentUserEmail(acct.getEmail());
             setCurrentUserDisplayName(acct.getDisplayName());
+            //setMyphoto(acct.getPhotoUrl());
             credential =
                     GoogleAccountCredential.usingAudience(this,"server:client_id:"+Constants.WEB_CLIENT_ID);
             setAccountName(acct.getEmail());
@@ -460,6 +463,14 @@ public class MainActivity extends AppCompatActivity implements
 
     public void setCredential(GoogleAccountCredential credential) {
         this.credential = credential;
+    }
+
+    public Uri getMyphoto() {
+        return myphoto;
+    }
+
+    public void setMyphoto(Uri myphoto) {
+        this.myphoto = myphoto;
     }
 
 }

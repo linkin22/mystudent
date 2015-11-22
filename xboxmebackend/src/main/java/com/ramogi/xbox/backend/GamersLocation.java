@@ -19,6 +19,7 @@ public class GamersLocation {
     private double latx;
     private double longy;
     private String gamertag;
+    //private Uri
 
     public String getEmail() {
         return email;
