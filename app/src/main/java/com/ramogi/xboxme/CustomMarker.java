@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -323,7 +323,7 @@ public class CustomMarker extends BaseActivity
 
         };
 
-        Toast.makeText(getApplicationContext(), "This will take a few minutes.....", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "This will take a few minutes.....", Toast.LENGTH_SHORT).show();
 
         QueryGamers queryGamers = new QueryGamers(10, queryPlusCallBack, credential);
         queryGamers.execute();

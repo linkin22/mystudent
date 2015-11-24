@@ -2,7 +2,7 @@ package com.ramogi.xboxme;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
-import android.net.Uri;
+//import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.plus.Plus;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.ramogi.xbox.backend.gamersLocationApi.model.GamersLocation;
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements
     private GamersLocation gamersLocation;
     private EditText mGamerTagInput;
     private Intent detailIntent;
+    //private Uri myPhotoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements
                 .addOnConnectionFailedListener(this)
                 .build();
         // [END build_client]
+        //.addApi(Plus.API, Plus.PlusOptions.builder().build())
 
         if (savedInstanceState != null) {
 
@@ -235,7 +238,9 @@ public class MainActivity extends AppCompatActivity implements
             mDetailsTextView.setText(acct.getEmail());
             setCurrentUserEmail(acct.getEmail());
             setCurrentUserDisplayName(acct.getDisplayName());
-            setMyphoto(acct.getPhotoUrl().getPath());
+            setMyPhoto(acct.getPhotoUrl().toString());
+            //setMyPhotoUri(acct.getPhotoUrl());
+
             credential =
                     GoogleAccountCredential.usingAudience(this,"server:client_id:"+Constants.WEB_CLIENT_ID);
             setAccountName(acct.getEmail());
@@ -362,30 +367,33 @@ public class MainActivity extends AppCompatActivity implements
         String myGamerTag = mGamerTagInput.getText().toString().trim();
 
         Log.i("upload location ", " " + getCurrentUserDisplayName() + " " + getCurrentUserEmail() +
-                " " + mylat + " " + mylong +" "+getMyphoto());
+                " " + mylat + " " + mylong + " " + getMyPhoto());
 
         gamersLocation.setEmail(getCurrentUserEmail());
         gamersLocation.setDisplayname(getCurrentUserDisplayName());
         gamersLocation.setLatx(mylat);
         gamersLocation.setLongy(mylong);
-        gamersLocation.setPhotourl(getMyphoto());
+        gamersLocation.setPhotoPath(getMyPhoto());
+            //gamersLocation.setPhotoURI(myPhotoURI);
+
         if(!(myGamerTag.isEmpty())) {
             gamersLocation.setGamertag(myGamerTag);
         }
         else {
             gamersLocation.setGamertag("Anonymous");
         }
+        Log.v("upload location ", gamersLocation.getPhotoPath());
 
         InsertPlus insertPlus = new InsertPlus(gamersLocation,getApplicationContext(),getCredential());
         insertPlus.execute();
 
-        Toast.makeText(this,"updated",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"updated",Toast.LENGTH_short).show();
 
         detailIntent.putExtra("userdisplayname", getCurrentUserDisplayName());
         detailIntent.putExtra("mylat",mylat);
         detailIntent.putExtra("mylong",mylong);
         detailIntent.putExtra("usermail", getCurrentUserEmail());
-        detailIntent.putExtra("urlphoto", getMyphoto());
+        detailIntent.putExtra("urlphoto", getMyPhoto());
         startActivity(detailIntent);
 
     }
@@ -474,12 +482,16 @@ public class MainActivity extends AppCompatActivity implements
         this.credential = credential;
     }
 
-    public String getMyphoto() {
+    public String getMyPhoto() {
         return myphoto;
     }
 
-    public void setMyphoto(String myphoto) {
+    public void setMyPhoto(String myphoto) {
         this.myphoto = myphoto;
     }
+
+    //public Uri getMyPhotoUri() { return myPhotoUri;  }
+
+    //public void setMyPhotoUri(Uri myPhotoUri) { this.myPhotoUri = myPhotoUri;  }
 
 }

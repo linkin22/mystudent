@@ -5,6 +5,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 import java.util.Date;
+import java.net.URI;
 
 /**
  * Created by ROchola on 11/19/2015.
@@ -19,7 +20,8 @@ public class GamersLocation {
     private double latx;
     private double longy;
     private String gamertag;
-    private String photourl;
+    private String photopath;
+    //private java.net.URI photoURI;
 
     public String getEmail() {
         return email;
@@ -69,11 +71,15 @@ public class GamersLocation {
         this.gamertag = gamertag;
     }
 
-    public String getPhotourl() {
-        return photourl;
+    public String getPhotoPath() {
+        return photopath;
     }
 
-    public void setPhotourl(String photourl) {
-        this.photourl = photourl;
+    public void setPhotoPath(String photopath) {
+        this.photopath = photopath;
     }
+
+    //public java.net.URI getPhotoURI() { return photoURI; }
+
+    //public void setPhotoURI(java.net.URI photoURI) { this.photoURI = photoURI;   }
 }

@@ -42,27 +42,27 @@ public class ImagePlusDownload extends AsyncTask<Void, Void, ArrayList<Drawable>
 
         for(GamersLocation gamersLocation : gamersLocationList ){
 
-            url = gamersLocation.getPhotourl();
+            url = gamersLocation.getPhotoPath();
 
             if(url != null){
                 //plusUrl.add(urldisplay);
             }
             else {
-                url = "there is no image";
+                url = " else there is no image";
             }
 
             //Log.v("image empty ", "url is null " + url);
 
             if(url.trim().isEmpty()){
 
-               Log.v("image empty ", "url is null " + url);
+               Log.v("image download ", "url is null " + url);
 
                 plusImages.add(context1.getResources().getDrawable(R.drawable.turtle));
             }
             else{
 
                 try {
-                   Log.v("image try ", "url being downloaded " + url);
+                   Log.v("image download try ", "url being downloaded " + url);
                     InputStream is = new URL(url.trim()).openStream();
                     d = Drawable.createFromStream(is, "src name");
                     is.close();
@@ -71,8 +71,8 @@ public class ImagePlusDownload extends AsyncTask<Void, Void, ArrayList<Drawable>
 
                     //return d;
                 } catch (Exception e) {
-                    Log.v("image catch ", "url not downloaded " + url);
-                    d = context1.getResources().getDrawable(R.drawable.stefan);
+                    Log.v("image download catch ", "url not downloaded " + url);
+                    d = context1.getResources().getDrawable(R.drawable.ruth);
                     plusImages.add(d);
                     e.printStackTrace();
                 }
