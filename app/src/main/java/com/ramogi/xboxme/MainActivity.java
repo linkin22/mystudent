@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements
         findViewById(R.id.disconnect_button).setOnClickListener(this);
         findViewById(R.id.locationbtn).setOnClickListener(this);
 
+        new GcmRegistrationAsyncTask(this).execute();
+
         gamersLocation = new GamersLocation();
         detailIntent = new Intent(getApplicationContext(), CustomMarker.class);
 
