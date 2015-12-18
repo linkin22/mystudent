@@ -9,5 +9,5 @@ import java.util.List;
  */
 public abstract class QueryRoleCallback {
 
-    public abstract void querycomplete(List<Role> role);
+    public abstract void querycomplete(Role role);
 }

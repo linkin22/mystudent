@@ -21,22 +21,24 @@ import java.util.List;
 /**
  * Created by ROchola on 11/22/2015.
  */
-public class QueryRole extends AsyncTask<Void, Void, CollectionResponseRole> {
+public class QueryRole extends AsyncTask<Void, Void, Role> {
 
     private GoogleAccountCredential credential;
     private QueryRoleCallback queryRoleCallback ;
-    private int limit;
-    private static RoleApi myApiService = null;
 
-    QueryRole(int limit, QueryRoleCallback queryRoleCallback, GoogleAccountCredential credential) {
+    private static RoleApi myApiService = null;
+    private String email;
+
+    QueryRole(String email, QueryRoleCallback queryRoleCallback, GoogleAccountCredential credential) {
 
         this.credential = credential;
-        this.limit = limit;
+
         this.queryRoleCallback = queryRoleCallback;
+        this.email = email;
     }
 
-    protected CollectionResponseRole doInBackground(Void... unused) {
-        CollectionResponseRole role = null;
+    protected Role doInBackground(Void... unused) {
+        Role role = null;
 
         try {
             if (myApiService == null) { // Only do this once
@@ -55,7 +57,8 @@ public class QueryRole extends AsyncTask<Void, Void, CollectionResponseRole> {
                 // end options for devappserver
                 myApiService = builder.build();
             }
-            role = myApiService.list().execute();
+
+            role = myApiService.get(email).execute();
 
             }catch(IOException e){
                 //Log.v("builder/do background", e.toString());
@@ -63,11 +66,13 @@ public class QueryRole extends AsyncTask<Void, Void, CollectionResponseRole> {
 
             return role;
         }
-    protected void onPostExecute(CollectionResponseRole role) {
+    protected void onPostExecute(Role role) {
+
+
 
         // Do something with the result.
         //ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        List<Role> _list = role.getItems();
+        //List<Role> _list = role.getItems();
         /*
         for (GamersLocation gamersLocation : _list) {
             HashMap<String, Object> item = new HashMap<String, Object>();
@@ -80,6 +85,6 @@ public class QueryRole extends AsyncTask<Void, Void, CollectionResponseRole> {
             list.add(item);
         }
         */
-        queryRoleCallback.querycomplete(_list);
+        queryRoleCallback.querycomplete(role);
     }
 }

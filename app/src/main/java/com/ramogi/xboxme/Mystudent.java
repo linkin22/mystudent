@@ -23,6 +23,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.ramogi.xbox.backend.gamersLocationApi.model.GamersLocation;
+import com.ramogi.xbox.backend.roleApi.model.Role;
 
 //import android.net.Uri;
 
@@ -40,7 +41,7 @@ public class Mystudent extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
-   private TextView mStatusTextView, mDetailsTextView;
+    private TextView mStatusTextView, mDetailsTextView;
         //    mGamerTagTextView, mLatxTextView, mLongyTextView;
     private ProgressDialog mProgressDialog;
     private Location mLastLocation, mSavedLocation;
@@ -353,6 +354,7 @@ public class Mystudent extends AppCompatActivity implements
 //            findViewById(R.id.locationbtn).setEnabled(true);
 
             uploadLocation();
+            queryRole(getCurrentUserEmail());
 
         } else {
             mStatusTextView.setText(R.string.signed_out);
@@ -365,6 +367,56 @@ public class Mystudent extends AppCompatActivity implements
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
           //  findViewById(R.id.locationbtn).setEnabled(false);
         }
+    }
+
+    private void queryRole(String email){
+
+        QueryRoleCallback qcb = new QueryRoleCallback() {
+            @Override
+            public void querycomplete(Role role) {
+
+                afterQueryRole(role);
+
+            }
+        };
+
+        QueryRole queryRole = new QueryRole(email,qcb,getCredential());
+        queryRole.execute();
+
+
+    }
+
+    private void afterQueryRole(Role role){
+
+        String myrole = "siko";
+        try {
+            myrole = role.getRole();
+            myrole.trim();
+        }
+        catch (java.lang.NullPointerException e){
+
+            myrole = "siko";
+
+        }
+
+        switch (myrole){
+            case "S":
+                break;
+            case "T":
+                break;
+            case "P":
+                break;
+            case "TP":
+                break;
+            default:
+                Intent unknown = new Intent(getApplicationContext(), Unknown.class);
+                unknown.putExtra("emailadd",getCurrentUserEmail());
+                unknown.putExtra("name", getCurrentUserDisplayName());
+                startActivity(unknown);
+
+                break;
+        }
+
     }
 
     private void uploadLocation(){
@@ -395,13 +447,15 @@ public class Mystudent extends AppCompatActivity implements
         insertPlus.execute();
 
         //Toast.makeText(this,"updated",Toast.LENGTH_short).show();
-
+/*
         detailIntent.putExtra("userdisplayname", getCurrentUserDisplayName());
         detailIntent.putExtra("mylat",mylat);
         detailIntent.putExtra("mylong",mylong);
         detailIntent.putExtra("usermail", getCurrentUserEmail());
         detailIntent.putExtra("urlphoto", getMyPhoto());
         startActivity(detailIntent);
+
+        */
 
     }
 
@@ -423,6 +477,8 @@ public class Mystudent extends AppCompatActivity implements
                 break;
         }
     }
+
+
 
     /**
      * Stores activity data in the Bundle.

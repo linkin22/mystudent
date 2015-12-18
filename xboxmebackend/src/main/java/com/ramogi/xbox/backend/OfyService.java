@@ -14,6 +14,8 @@ public class OfyService {
         ObjectifyService.register(RegistrationRecord.class);
         ObjectifyService.register(GamersLocation.class);
         ObjectifyService.register(Teacher.class);
+        ObjectifyService.register(Role.class);
+        ObjectifyService.register(Unknown.class);
     }
 
     public static Objectify ofy() {

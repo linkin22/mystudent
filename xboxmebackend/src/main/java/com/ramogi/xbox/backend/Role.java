@@ -17,6 +17,9 @@ public class Role {
     private String role;
     private String createdby;
     private Date created;
+    private Date lastmodified;
+    private String displayname;
+    private String fullname;
 
     public String getEmail() {
         return email;
@@ -49,4 +52,32 @@ public class Role {
     public void setCreated(Date created) {
         this.created = created;
     }
+
+    public String getDisplayname() {
+        return displayname;
+    }
+
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+
+    public Date getLastmodified() {
+        return lastmodified;
+    }
+
+    public void setLastmodified(Date lastmodified) {
+        this.lastmodified = lastmodified;
+    }
+
+
+
 }
