@@ -8,8 +8,8 @@ android {
         applicationId "com.ramogi.xboxme"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 7
-        versionName "1.007"
+        versionCode 8
+        versionName "1.008"
 
         // Enabling multidex support.
         multiDexEnabled true

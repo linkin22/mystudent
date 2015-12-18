@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -401,6 +402,13 @@ public class Mystudent extends AppCompatActivity implements
 
         switch (myrole){
             case "S":
+                //Toast.makeText(this, "I'm an S", Toast.LENGTH_LONG).show();
+
+                Intent superadmin = new Intent(getApplicationContext(), Superadmin.class);
+                superadmin.putExtra("emailadd",getCurrentUserEmail());
+                superadmin.putExtra("name", getCurrentUserDisplayName());
+                startActivity(superadmin);
+
                 break;
             case "T":
                 break;

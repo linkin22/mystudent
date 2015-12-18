@@ -74,10 +74,8 @@
         </activity>
         <activity
             android:name=".Unknown"
-            android:label="@string/title_activity_unknown">
-
+            android:label="@string/title_activity_sign_in" >
         </activity>
-
         <activity
             android:name=".ChooserActivity"
             android:label="@string/title_activity_chooser" >
@@ -87,6 +85,16 @@
             android:label="@string/title_activity_id_token"
             android:theme="@style/ThemeOverlay.MyNoTitleActivity" >
         </activity>
+
+        <activity
+            android:name=".Superadmin"
+            android:label="@string/title_activity_sign_in">
+        </activity>
+        <activity
+            android:name=".CreateTeacher"
+            android:label="@string/title_activity_sign_in">
+        </activity>
+
         <activity
             android:name=".ServerAuthCodeActivity"
             android:label="@string/title_activity_server_auth_code"
@@ -117,10 +125,7 @@
 
         <service android:name=".GcmIntentService" />
 
-        <activity
-            android:name=".Unknown"
-            android:label="@string/title_activity_unknown" >
-        </activity>
+
     </application>
 
 </manifest>
