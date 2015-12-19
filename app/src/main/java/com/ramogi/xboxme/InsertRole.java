@@ -84,7 +84,7 @@ public class InsertRole extends AsyncTask<Role, Void, String> {
 
     }
 
-    public void setRole(Role teacher) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

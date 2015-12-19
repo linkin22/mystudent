@@ -109,19 +109,17 @@ public class CreateTeacher extends Activity implements
 
                     break;
             }
-
-
-
-
         }
         catch (java.lang.NullPointerException e){
 
-            role.setRole("T");
-            role.setFullname(tfullname);
-            role.setEmail(temail);
-            role.setCreatedby(email);
+            Role role1 = new Role();
 
-            InsertRole insertRole = new InsertRole(role,getApplicationContext(),getCredential());
+            role1.setRole("T");
+            role1.setFullname(tfullname);
+            role1.setEmail(temail);
+            role1.setCreatedby(email);
+
+            InsertRole insertRole = new InsertRole(role1,getApplicationContext(),getCredential());
             insertRole.execute();
 
         }
