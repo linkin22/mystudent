@@ -4,14 +4,15 @@ package com.ramogi.xboxme;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.google.api.client.util.DateTime;
-import com.ramogi.xbox.backend.teacherApi.TeacherApi;
-import com.ramogi.xbox.backend.teacherApi.model.Teacher;
+import com.ramogi.xbox.backend.roleApi.RoleApi;
+import com.ramogi.xbox.backend.roleApi.model.Role;
 
 import java.io.IOException;
 
@@ -23,21 +24,21 @@ import java.io.IOException;
 /**
  * Created by ROchola on 2/15/2015.
  */
-public class InsertTeacher extends AsyncTask<Teacher, Void, String> {
+public class InsertRole extends AsyncTask<Role, Void, String> {
 
-    private static TeacherApi myApiService = null;
+    private static RoleApi myApiService = null;
     private Context context;
     private GoogleAccountCredential credential;
-    public Teacher teacher;
+    public Role role;
 
-    public InsertTeacher(Teacher teacher, Context context, GoogleAccountCredential credential) {
-        setTeacher(teacher);
+    public InsertRole(Role role, Context context, GoogleAccountCredential credential) {
+        setRole(role);
         this.context = context;
         this.credential = credential;
     }
 
     @Override
-    protected String doInBackground(Teacher... locationPlus) {
+    protected String doInBackground(Role... locationPlus) {
 
         // Only do this once
         // options for running against local devappserver
@@ -45,7 +46,7 @@ public class InsertTeacher extends AsyncTask<Teacher, Void, String> {
         // - turn off compression when running against local devappserver
 
         if (myApiService == null) {
-            TeacherApi.Builder builder = new TeacherApi.Builder(
+            RoleApi.Builder builder = new RoleApi.Builder(
                     AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), credential)
                     .setRootUrl("https://" + Constants.PROJECT_ID + ".appspot.com/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
@@ -63,8 +64,8 @@ public class InsertTeacher extends AsyncTask<Teacher, Void, String> {
         try {
             //myApiService.insert(getLocationPlus()).execute();
             //myApiService.insert(locationPlus[0]).execute();
-            getTeacher().setTcreated(new DateTime(new java.util.Date()));
-            myApiService.insert(getTeacher()).execute();
+            getRole().setCreated(new DateTime(new java.util.Date()));
+            myApiService.insert(getRole()).execute();
             //myApiService.update(locationPlus[0].getEmail(),locationPlus[0]).execute();
 
         } catch (IOException e) {
@@ -72,7 +73,7 @@ public class InsertTeacher extends AsyncTask<Teacher, Void, String> {
             Toast.makeText(context, "Insert plus exception thrown", Toast.LENGTH_LONG).show();
         }
 
-        return "Teacher Added";
+        return "Role Added";
     }
 
     @Override
@@ -83,12 +84,12 @@ public class InsertTeacher extends AsyncTask<Teacher, Void, String> {
 
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setRole(Role teacher) {
+        this.role = role;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public Role getRole() {
+        return role;
     }
 
 

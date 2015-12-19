@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Full names"
+        android:hint="Full names"
         android:ems="10"
         android:id="@+id/nameTeacher"
         android:layout_alignParentTop="true"
@@ -37,12 +37,24 @@
         android:layout_below="@+id/emailTeacher"
         android:layout_centerHorizontal="true" />
 
+    <EditText
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tschoolname"
+        android:hint="School name"
+        android:layout_below="@+id/phoneTeacher"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignStart="@+id/phoneTeacher"
+        android:layout_alignEnd="@+id/phoneTeacher" />
+
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_below="@+id/phoneTeacher"
+        android:layout_below="@+id/tschoolname"
         android:layout_centerHorizontal="true"
         android:id="@+id/radioGroup">
+
+
 
         <RadioButton
             android:layout_width="wrap_content"

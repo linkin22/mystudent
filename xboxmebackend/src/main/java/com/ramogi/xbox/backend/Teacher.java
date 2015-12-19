@@ -20,6 +20,7 @@ public class Teacher {
     private Date tcreated;
     private Date tdob;
     private String gender;
+    private String createdby;
 
 
     public String getGender() {
@@ -76,6 +77,15 @@ public class Teacher {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
     }
 
 

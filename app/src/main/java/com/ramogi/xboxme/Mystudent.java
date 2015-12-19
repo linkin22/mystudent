@@ -416,6 +416,8 @@ public class Mystudent extends AppCompatActivity implements
                 break;
             case "TP":
                 break;
+            case "PT":
+                break;
             default:
                 Intent unknown = new Intent(getApplicationContext(), Unknown.class);
                 unknown.putExtra("emailadd",getCurrentUserEmail());
