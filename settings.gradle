@@ -1,1 +1,1 @@
-include ':app', ':xboxmebackend'
+include ':app', ':xboxmebackend', ':teacher'
