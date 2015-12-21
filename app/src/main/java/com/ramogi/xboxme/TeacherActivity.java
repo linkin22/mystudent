@@ -184,11 +184,10 @@ public class TeacherActivity extends Activity {
 
         switch (position) {
             case 0:
-                fragment = new TeacherFragment();
+                fragment = new TeacherProfileFragment();
                 break;
             case 1:
-                //fragment = new ReadFragment();
-                Toast.makeText(this,"Second",Toast.LENGTH_SHORT).show();
+                fragment = new TeacherExamFragment();
                 break;
             case 2:
                 Toast.makeText(this,"Third",Toast.LENGTH_SHORT).show();
@@ -285,9 +284,9 @@ public class TeacherActivity extends Activity {
         }
     }
 
-    public static class TeacherFragment extends Fragment{
+    public static class TeacherProfileFragment extends Fragment{
 
-        public TeacherFragment(){
+        public TeacherProfileFragment(){
 
         }
 
@@ -298,7 +297,31 @@ public class TeacherActivity extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_teacherprofile, container, false);
 
             TextView tprofilename = (TextView)rootView.findViewById(R.id.tprofilename);
-            tprofilename.setText("Teacher name working");
+            tprofilename.setText("Teacher profile working");
+
+            getActivity().setTitle(R.string.teacherfragmentprofile);
+
+            return rootView;
+
+
+        }
+
+    }
+
+    public static class TeacherExamFragment extends Fragment{
+
+        public TeacherExamFragment(){
+
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+
+            View rootView = inflater.inflate(R.layout.fragment_teacherexam, container, false);
+
+            TextView tschoolname = (TextView)rootView.findViewById(R.id.tprofileschool);
+            tschoolname.setText("Teacher exam working");
 
             getActivity().setTitle(R.string.teacherfragmentprofile);
 

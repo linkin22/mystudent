@@ -94,5 +94,6 @@
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="teacherfragment">My Student App</string>
     <string name="teacherfragmentprofile">Your teacher profile</string>
+    <string name="teacherfragmentexam">Update exam</string>
 
 </resources>
