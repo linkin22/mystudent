@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="Your name"
+        android:id="@+id/tprofilename"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="Your email"
+        android:id="@+id/tprofileemail"
+        android:layout_below="@+id/tprofilename"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="Your school"
+        android:id="@+id/tprofileschool"
+        android:layout_below="@+id/tprofileemail"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

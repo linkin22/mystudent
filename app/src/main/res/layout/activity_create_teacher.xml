@@ -40,10 +40,11 @@
     <EditText
         android:layout_width="248dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/tschoolname"
         android:hint="School name"
         android:layout_below="@+id/phoneTeacher"
-        android:layout_gravity="center_horizontal"
+
         android:layout_alignStart="@+id/phoneTeacher"
         android:layout_alignEnd="@+id/phoneTeacher" />
 

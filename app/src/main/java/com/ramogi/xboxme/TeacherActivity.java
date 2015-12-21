@@ -28,6 +28,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +40,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -86,7 +88,7 @@ public class TeacherActivity extends Activity {
         setContentView(R.layout.activity_teacher);
 
         mTitle = mDrawerTitle = getTitle();
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+        mPlanetTitles = getResources().getStringArray(R.array.teacher_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -177,7 +179,47 @@ public class TeacherActivity extends Activity {
     }
 
     private void selectItem(int position) {
+
+        Fragment fragment = null;
+
+        switch (position) {
+            case 0:
+                fragment = new TeacherFragment();
+                break;
+            case 1:
+                //fragment = new ReadFragment();
+                Toast.makeText(this,"Second",Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                Toast.makeText(this,"Third",Toast.LENGTH_SHORT).show();
+                break;
+            case 3:
+                //fragment = new ReadFragment();
+                Toast.makeText(this,"Fourth",Toast.LENGTH_SHORT).show();
+                break;
+            case 4:
+                Toast.makeText(this,"Fifth",Toast.LENGTH_SHORT).show();
+                break;
+
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+            mDrawerList.setItemChecked(position, true);
+            mDrawerList.setSelection(position);
+            setTitle(mPlanetTitles[position]);
+            mDrawerLayout.closeDrawer(mDrawerList);
+
+        } else {
+            Log.e("MainActivity", "Error in creating fragment");
+        }
         // update the main content by replacing fragments
+
+        /*
         Fragment fragment = new PlanetFragment();
         Bundle args = new Bundle();
         args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
@@ -190,6 +232,7 @@ public class TeacherActivity extends Activity {
         mDrawerList.setItemChecked(position, true);
         setTitle(mPlanetTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
+        */
     }
 
     @Override
@@ -240,5 +283,29 @@ public class TeacherActivity extends Activity {
             getActivity().setTitle(planet);
             return rootView;
         }
+    }
+
+    public static class TeacherFragment extends Fragment{
+
+        public TeacherFragment(){
+
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+
+            View rootView = inflater.inflate(R.layout.fragment_teacherprofile, container, false);
+
+            TextView tprofilename = (TextView)rootView.findViewById(R.id.tprofilename);
+            tprofilename.setText("Teacher name working");
+
+            getActivity().setTitle(R.string.teacherfragmentprofile);
+
+            return rootView;
+
+
+        }
+
     }
 }
