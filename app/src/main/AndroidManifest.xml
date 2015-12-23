@@ -26,8 +26,8 @@
 
     <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -62,19 +62,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ramogi.xboxme.Mystudent" />
-
-
         </activity>
         <activity
             android:name=".Mystudent"
-            android:theme="@style/Theme.AppCompat"
-            android:label="@string/title_activity_sign_in">
-
+            android:label="@string/title_activity_sign_in"
+            android:theme="@style/Theme.AppCompat" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".SignInActivity"
@@ -128,6 +125,11 @@
         </receiver>
 
         <service android:name=".GcmIntentService" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
     </application>
 
 </manifest>

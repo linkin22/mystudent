@@ -27,8 +27,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -336,13 +334,13 @@ public class TeacherActivity extends Activity {
                 @Override
                 public void querycomplete(Teacher teacher) {
 
-                    TextView tprofilename = (TextView)rootView.findViewById(R.id.tprofilename);
+                    TextView tprofilename = (TextView)rootView.findViewById(R.id.addstudentname);
                     tprofilename.setText(teacher.getTname());
-                    TextView tprofileschool = (TextView)rootView.findViewById(R.id.tprofileschool);
+                    TextView tprofileschool = (TextView)rootView.findViewById(R.id.addstudentschool);
                     tprofileschool.setText(teacher.getTschool());
-                    TextView tprofileemail = (TextView)rootView.findViewById(R.id.tprofileemail);
+                    TextView tprofileemail = (TextView)rootView.findViewById(R.id.addparentemail);
                     tprofileemail.setText(teacher.getEmail());
-                    TextView tprofilephone = (TextView)rootView.findViewById(R.id.tprofilephone);
+                    TextView tprofilephone = (TextView)rootView.findViewById(R.id.addstudentphone);
                     tprofilephone.setText(""+teacher.getTmobile());
 
                     getActivity().setTitle(R.string.teacherfragmentprofile);
@@ -373,7 +371,7 @@ public class TeacherActivity extends Activity {
 
             View rootView = inflater.inflate(R.layout.fragment_teacherexam, container, false);
 
-            TextView tschoolname = (TextView)rootView.findViewById(R.id.tprofileschool);
+            TextView tschoolname = (TextView)rootView.findViewById(R.id.addstudentschool);
             tschoolname.setText("Teacher exam working");
 
             getActivity().setTitle(R.string.teacherfragmentprofile);
@@ -383,6 +381,50 @@ public class TeacherActivity extends Activity {
 
         }
     }
+
+    public static class AddStudentFragment extends Fragment{
+
+        public AddStudentFragment(){
+
+
+
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+
+            final View rootView = inflater.inflate(R.layout.fragment_teacherprofile, container, false);
+
+            QueryOneTeacherCallback qotc = new QueryOneTeacherCallback() {
+                @Override
+                public void querycomplete(Teacher teacher) {
+
+                    TextView tprofilename = (TextView)rootView.findViewById(R.id.addstudentname);
+                    tprofilename.setText(teacher.getTname());
+                    TextView tprofileschool = (TextView)rootView.findViewById(R.id.addstudentschool);
+                    tprofileschool.setText(teacher.getTschool());
+                    TextView tprofileemail = (TextView)rootView.findViewById(R.id.addparentemail);
+                    tprofileemail.setText(teacher.getEmail());
+                    TextView tprofilephone = (TextView)rootView.findViewById(R.id.addstudentphone);
+                    tprofilephone.setText(""+teacher.getTmobile());
+
+                    getActivity().setTitle(R.string.teacherfragmentprofile);
+
+
+                }
+            };
+
+            QueryOneTeacher queryOneTeacher = new QueryOneTeacher(email,qotc,credential);
+            queryOneTeacher.execute();
+
+            return rootView;
+
+
+        }
+
+    }
+
     public String getEmail() {
         return email;
     }

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+
     <TextView
         android:layout_width="248dp"
         android:layout_height="wrap_content"
@@ -42,12 +43,35 @@
         android:layout_below="@+id/addstudentschool"
         android:layout_centerHorizontal="true" />
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/addstudentphone"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/radioGroup">
+
+
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:id="@+id/maleRadioBtn" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:id="@+id/femaleRadioBtn"
+            android:layout_gravity="center_horizontal" />
+    </RadioGroup>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tedit"
-        android:id="@+id/edittprofilebtn"
-        android:layout_below="@+id/addstudentphone"
+        android:text="@string/submit"
+        android:id="@+id/addstudentbtn"
+        android:layout_below="@+id/radioGroup"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

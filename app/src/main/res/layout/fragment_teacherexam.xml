@@ -8,7 +8,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
         android:text="Your name"
-        android:id="@+id/tprofilename"
+        android:id="@+id/addstudentname"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -18,8 +18,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
         android:text="Your email"
-        android:id="@+id/tprofileemail"
-        android:layout_below="@+id/tprofilename"
+        android:id="@+id/addparentemail"
+        android:layout_below="@+id/addstudentname"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
         android:text="Your school"
-        android:id="@+id/tprofileschool"
-        android:layout_below="@+id/tprofileemail"
+        android:id="@+id/addstudentschool"
+        android:layout_below="@+id/addparentemail"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>
