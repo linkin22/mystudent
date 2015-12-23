@@ -63,15 +63,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ramogi.xboxme.Mystudent" />
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Mystudent"
+            android:theme="@style/Theme.AppCompat"
             android:label="@string/title_activity_sign_in">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity

@@ -43,6 +43,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ramogi.xbox.backend.teacherApi.model.Teacher;
+
 import java.util.Locale;
 
 /**
@@ -288,6 +290,8 @@ public class TeacherActivity extends Activity {
 
         public TeacherProfileFragment(){
 
+
+
         }
 
         @Override
@@ -295,6 +299,13 @@ public class TeacherActivity extends Activity {
                                  Bundle savedInstanceState) {
 
             View rootView = inflater.inflate(R.layout.fragment_teacherprofile, container, false);
+
+            QueryOneTeacherCallback qotc = new QueryOneTeacherCallback() {
+                @Override
+                public void querycomplete(Teacher teacher) {
+
+                }
+            };
 
             TextView tprofilename = (TextView)rootView.findViewById(R.id.tprofilename);
             tprofilename.setText("Teacher profile working");
