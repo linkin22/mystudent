@@ -21,6 +21,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -43,6 +44,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.ramogi.xbox.backend.teacherApi.model.Teacher;
 
 import java.util.Locale;
@@ -82,12 +84,42 @@ public class TeacherActivity extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
+    private String displayname;
+    private static String email;
+    private static GoogleAccountCredential credential;
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_teacher);
+
+        Bundle bundle = getIntent().getExtras();
+
+        email = bundle.getString("emailadd");
+        displayname = bundle.getString("name");
+
+        Log.v("Teacher Activity ", email);
+
+        settings = getSharedPreferences("xboxme", 0);
+        credential =
+                GoogleAccountCredential.usingAudience(this, "server:client_id:" + Constants.WEB_CLIENT_ID);
+
+        setAccountName(settings.getString("ACCOUNT_NAME", null));
+        if (credential.getSelectedAccountName() != null) {
+            //detailIntent.putExtra("credential",accountCredentials);
+
+            // Already signed in, begin app!
+            //Toast.makeText(getBaseContext(), "Logged in with : " + credential.getSelectedAccountName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(), GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext()),Toast.LENGTH_SHORT).show();
+        } else {
+            // Not signed in, show login window or request an account.
+            //chooseAccount();
+            setAccountName(email);
+        }
+
+        //setEmail(email);
 
         mTitle = mDrawerTitle = getTitle();
         mPlanetTitles = getResources().getStringArray(R.array.teacher_array);
@@ -298,19 +330,29 @@ public class TeacherActivity extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            View rootView = inflater.inflate(R.layout.fragment_teacherprofile, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_teacherprofile, container, false);
 
             QueryOneTeacherCallback qotc = new QueryOneTeacherCallback() {
                 @Override
                 public void querycomplete(Teacher teacher) {
 
+                    TextView tprofilename = (TextView)rootView.findViewById(R.id.tprofilename);
+                    tprofilename.setText(teacher.getTname());
+                    TextView tprofileschool = (TextView)rootView.findViewById(R.id.tprofileschool);
+                    tprofileschool.setText(teacher.getTschool());
+                    TextView tprofileemail = (TextView)rootView.findViewById(R.id.tprofileemail);
+                    tprofileemail.setText(teacher.getEmail());
+                    TextView tprofilephone = (TextView)rootView.findViewById(R.id.tprofilephone);
+                    tprofilephone.setText(""+teacher.getTmobile());
+
+                    getActivity().setTitle(R.string.teacherfragmentprofile);
+
+
                 }
             };
 
-            TextView tprofilename = (TextView)rootView.findViewById(R.id.tprofilename);
-            tprofilename.setText("Teacher profile working");
-
-            getActivity().setTitle(R.string.teacherfragmentprofile);
+            QueryOneTeacher queryOneTeacher = new QueryOneTeacher(email,qotc,credential);
+            queryOneTeacher.execute();
 
             return rootView;
 
@@ -340,6 +382,31 @@ public class TeacherActivity extends Activity {
 
 
         }
+    }
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDisplayname() {
+        return displayname;
+    }
+
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
+    }
+
+    // setAccountName definition
+    private void setAccountName(String accountName) {
+        //accountCredentials.clear();
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("ACCOUNT_NAME", accountName);
+        editor.commit();
+        credential.setSelectedAccountName(accountName);
+        //accountCredentials.add(credential);
+        //this.accountName = accountName;
     }
 }

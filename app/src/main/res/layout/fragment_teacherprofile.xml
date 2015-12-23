@@ -31,4 +31,15 @@
         android:id="@+id/tprofileschool"
         android:layout_below="@+id/tprofileemail"
         android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="Mobile No."
+        android:id="@+id/tprofilephone"
+        android:layout_below="@+id/tprofileschool"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

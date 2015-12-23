@@ -412,12 +412,26 @@ public class Mystudent extends AppCompatActivity implements
 
                 break;
             case "T":
+                Intent teacherActivity = new Intent(getApplicationContext(), TeacherActivity.class);
+                teacherActivity.putExtra("emailadd",getCurrentUserEmail());
+                teacherActivity.putExtra("name", getCurrentUserDisplayName());
+                startActivity(teacherActivity);
+
                 break;
             case "P":
                 break;
             case "TP":
+                Intent tpadmin = new Intent(getApplicationContext(), TPAdmin.class);
+                tpadmin.putExtra("emailadd",getCurrentUserEmail());
+                tpadmin.putExtra("name", getCurrentUserDisplayName());
+                startActivity(tpadmin);
                 break;
             case "PT":
+                Intent tpadmin1 = new Intent(getApplicationContext(), TPAdmin.class);
+                tpadmin1.putExtra("emailadd",getCurrentUserEmail());
+                tpadmin1.putExtra("name", getCurrentUserDisplayName());
+                startActivity(tpadmin1);
+
                 break;
             default:
                 Intent unknown = new Intent(getApplicationContext(), Unknown.class);
