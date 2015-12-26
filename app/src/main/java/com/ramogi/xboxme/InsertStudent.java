@@ -31,18 +31,21 @@ import java.io.IOException;
 public class InsertStudent extends AsyncTask<Student, Void, String> {
 
     private static StudentApi myApiService = null;
-    private Context context;
+    private InsertStudentCallback insertStudentCallback;
     private GoogleAccountCredential credential;
     public Student student;
 
-    public InsertStudent(Student student, Context context, GoogleAccountCredential credential) {
-        setStudent(student);
-        this.context = context;
+    public InsertStudent(Student student, InsertStudentCallback insertStudentCallback, GoogleAccountCredential credential) {
+        //setStudent(student);
+        this.student = student;
+        this.insertStudentCallback = insertStudentCallback;
         this.credential = credential;
     }
 
     @Override
     protected String doInBackground(Student... locationPlus) {
+
+        String added = null;
 
         // Only do this once
         // options for running against local devappserver
@@ -68,23 +71,29 @@ public class InsertStudent extends AsyncTask<Student, Void, String> {
         try {
             //myApiService.insert(getLocationPlus()).execute();
             //myApiService.insert(locationPlus[0]).execute();
-            getStudent().setCreatedate(new DateTime(new java.util.Date()));
-            myApiService.insert(getStudent()).execute();
+            student.setCreatedate(new DateTime(new java.util.Date()));
+            myApiService.insert(student).execute();
             //myApiService.update(locationPlus[0].getEmail(),locationPlus[0]).execute();
+
+            added = student.getStudentname()+" added";
 
         } catch (IOException e) {
             //Log.v("builder/do background  ", e.toString());
-            Toast.makeText(context, "Insert student error, kindly try again", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Insert student error, kindly try again", Toast.LENGTH_LONG).show();
+
+            added = student.getStudentname()+" not added";
         }
 
-        return "Student Added";
+        return added;
     }
 
     @Override
     protected void onPostExecute(String me) {
         //for (Quote q : result) {
-        Toast.makeText(context, me, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, me, Toast.LENGTH_LONG).show();
         // }
+
+        insertStudentCallback.querycomplete(me);
 
     }
 

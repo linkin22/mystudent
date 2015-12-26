@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+
     <TextView
         android:layout_width="248dp"
         android:layout_height="wrap_content"
@@ -18,9 +19,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
         android:text="@string/temail"
-        android:id="@+id/addparentemail"
         android:layout_below="@+id/addstudentname"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/addparentemail"/>
 
     <TextView
         android:layout_width="248dp"
@@ -49,5 +50,7 @@
         android:id="@+id/edittprofilebtn"
         android:layout_below="@+id/addstudentphone"
         android:layout_centerHorizontal="true" />
+
+
 
 </RelativeLayout>

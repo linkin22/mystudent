@@ -16,6 +16,9 @@
 
 package com.ramogi.xboxme;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -23,6 +26,7 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -37,12 +41,16 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.ramogi.xbox.backend.studentApi.model.Student;
 import com.ramogi.xbox.backend.teacherApi.model.Teacher;
 
 import java.util.Locale;
@@ -86,6 +94,13 @@ public class TeacherActivity extends Activity {
     private static String email;
     private static GoogleAccountCredential credential;
     private SharedPreferences settings;
+    private View mProgressView;
+    private View mLoginFormView;
+    private static String gender = "NA";
+    private EditText studentname;
+    private EditText schoolname;
+    private EditText parentmobile;
+    private EditText parentemail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +113,8 @@ public class TeacherActivity extends Activity {
         email = bundle.getString("emailadd");
         displayname = bundle.getString("name");
 
-        Log.v("Teacher Activity ", email);
+       // mLoginFormView = findViewById(R.id.query_form);
+       // mProgressView = findViewById(R.id.query_progress);
 
         settings = getSharedPreferences("xboxme", 0);
         credential =
@@ -216,10 +232,12 @@ public class TeacherActivity extends Activity {
 
         switch (position) {
             case 0:
+                //showProgress(true);
                 fragment = new TeacherProfileFragment();
+                //showProgress(false);
                 break;
             case 1:
-                fragment = new TeacherExamFragment();
+                fragment = new AddStudentFragment();
                 break;
             case 2:
                 Toast.makeText(this,"Third",Toast.LENGTH_SHORT).show();
@@ -277,6 +295,43 @@ public class TeacherActivity extends Activity {
      * onPostCreate() and onConfigurationChanged()...
      */
 
+
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -321,7 +376,6 @@ public class TeacherActivity extends Activity {
         public TeacherProfileFragment(){
 
 
-
         }
 
         @Override
@@ -341,9 +395,11 @@ public class TeacherActivity extends Activity {
                     TextView tprofileemail = (TextView)rootView.findViewById(R.id.addparentemail);
                     tprofileemail.setText(teacher.getEmail());
                     TextView tprofilephone = (TextView)rootView.findViewById(R.id.addstudentphone);
-                    tprofilephone.setText(""+teacher.getTmobile());
+                    tprofilephone.setText("" + teacher.getTmobile());
 
                     getActivity().setTitle(R.string.teacherfragmentprofile);
+
+                    //stopprogress();
 
 
                 }
@@ -357,6 +413,10 @@ public class TeacherActivity extends Activity {
 
         }
 
+    }
+
+    private final void stopprogress(){
+        showProgress(false);
     }
 
     public static class TeacherExamFragment extends Fragment{
@@ -386,37 +446,109 @@ public class TeacherActivity extends Activity {
 
         public AddStudentFragment(){
 
-
-
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            final View rootView = inflater.inflate(R.layout.fragment_teacherprofile, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_addstudent, container, false);
 
-            QueryOneTeacherCallback qotc = new QueryOneTeacherCallback() {
+            final Student student = new Student();
+
+            final InsertStudentCallback insertStudentCallback = new InsertStudentCallback() {
                 @Override
-                public void querycomplete(Teacher teacher) {
+                public void querycomplete(String result) {
 
-                    TextView tprofilename = (TextView)rootView.findViewById(R.id.addstudentname);
-                    tprofilename.setText(teacher.getTname());
-                    TextView tprofileschool = (TextView)rootView.findViewById(R.id.addstudentschool);
-                    tprofileschool.setText(teacher.getTschool());
-                    TextView tprofileemail = (TextView)rootView.findViewById(R.id.addparentemail);
-                    tprofileemail.setText(teacher.getEmail());
-                    TextView tprofilephone = (TextView)rootView.findViewById(R.id.addstudentphone);
-                    tprofilephone.setText(""+teacher.getTmobile());
+                    Toast.makeText(getActivity().getApplication().getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
-                    getActivity().setTitle(R.string.teacherfragmentprofile);
+                    EditText studentname = (EditText)rootView.findViewById(R.id.addStudentName);
+                    EditText schoolname = (EditText)rootView.findViewById(R.id.addStudentSchool);
+                    EditText studentadmno = (EditText)rootView.findViewById(R.id.addStudentAdmno);
+                    EditText parentemail = (EditText)rootView.findViewById(R.id.addParentEmail);
+                    EditText parentphone = (EditText)rootView.findViewById(R.id.addParentPhone);
+                    RadioGroup radioGroup = (RadioGroup)rootView.findViewById(R.id.radioGroup);
+
+                    studentname.setText("");
+                    schoolname.setText("");
+                    studentadmno.setText("");
+                    parentemail.setText("");
+                    parentphone.setText("");
+                    radioGroup.clearCheck();
+
 
 
                 }
             };
 
-            QueryOneTeacher queryOneTeacher = new QueryOneTeacher(email,qotc,credential);
-            queryOneTeacher.execute();
+
+
+            rootView.findViewById(R.id.maleRadioBtn).setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    student.setGender("MALE");
+                    Log.v("male radio button ", "male");
+                }
+            });
+
+            rootView.findViewById(R.id.femaleRadioBtn).setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    student.setGender("FEMALE");
+                    Log.v("female radio button ", "female");
+                }
+            });
+
+
+
+
+            rootView.findViewById(R.id.addStudentBtn).setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    Log.v("button clicked ", " before adding");
+
+
+                    EditText studentname = (EditText)rootView.findViewById(R.id.addStudentName);
+                    EditText schoolname = (EditText)rootView.findViewById(R.id.addStudentSchool);
+                    EditText studentadmno = (EditText)rootView.findViewById(R.id.addStudentAdmno);
+                    EditText parentemail = (EditText)rootView.findViewById(R.id.addParentEmail);
+                    EditText parentphone = (EditText)rootView.findViewById(R.id.addParentPhone);
+
+                    int tmobile = 0;
+
+                    try {
+                        tmobile = Integer.parseInt(parentphone.getText().toString().trim());
+                        Log.v("parent phone "," inside try "+tmobile);
+                    } catch(NumberFormatException nfe) {
+                        Log.v("parent phone "," inside catch "+tmobile);
+
+
+                    }
+                    Log.v("parent phone "," after tryandcatch "+tmobile);
+
+                    student.setCreatedby(email);
+                    student.setStudentname(studentname.getText().toString().trim());
+                    student.setSchoolname(schoolname.getText().toString().trim());
+                    student.setAdmno(studentadmno.getText().toString().trim());
+                    student.setParentemail(parentemail.getText().toString().trim());
+                    student.setParentphone(tmobile);
+
+                    Log.v("button clicked ", student.getAdmno());
+                    Log.v("button clicked ", student.getCreatedby());
+                    Log.v("button clicked ", student.getParentemail());
+                    Log.v("button clicked ", student.getGender());
+                    Log.v("button clicked ", student.getSchoolname());
+                    Log.v("button clicked ", student.getStudentname());
+
+                    InsertStudent insertStudent = new InsertStudent(student,insertStudentCallback, credential);
+                    insertStudent.execute();
+
+
+
+                    Log.v("button clicked ", " After adding");
+                }
+            });
+
 
             return rootView;
 
@@ -450,5 +582,13 @@ public class TeacherActivity extends Activity {
         credential.setSelectedAccountName(accountName);
         //accountCredentials.add(credential);
         //this.accountName = accountName;
+    }
+
+    public static  String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

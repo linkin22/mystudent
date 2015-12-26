@@ -22,7 +22,7 @@ public class Student {
     private String gender;
     private String classform;
     private String classteacher;
-    private String parentphone;
+    private int parentphone;
     private String tcomments;
     private String createdby;
     private Date createdate;
@@ -35,11 +35,11 @@ public class Student {
         this.tcomments = tcomments;
     }
 
-    public String getParentphone() {
+    public int getParentphone() {
         return parentphone;
     }
 
-    public void setParentphone(String parentphone) {
+    public void setParentphone(int parentphone) {
         this.parentphone = parentphone;
     }
 

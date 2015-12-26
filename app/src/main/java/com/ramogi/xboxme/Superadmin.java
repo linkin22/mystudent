@@ -11,6 +11,8 @@ public class Superadmin extends Activity implements
 
     private String displayname;
     private String email;
+    private View mProgressView;
+    private View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class Superadmin extends Activity implements
         findViewById(R.id.addteacherbtn).setOnClickListener(this);
         findViewById(R.id.teacherbtn).setOnClickListener(this);
         findViewById(R.id.parentbtn).setOnClickListener(this);
+
+
     }
 
     @Override

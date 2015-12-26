@@ -2,76 +2,118 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/tname"
-        android:id="@+id/addstudentname"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/temail"
-        android:id="@+id/addparentemail"
-        android:layout_below="@+id/addstudentname"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/tschool"
-        android:id="@+id/addstudentschool"
-        android:layout_below="@+id/addparentemail"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/tmobile"
-        android:id="@+id/addstudentphone"
-        android:layout_below="@+id/addstudentschool"
-        android:layout_centerHorizontal="true" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@+id/addstudentphone"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/radioGroup">
-
-
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Male"
-            android:id="@+id/maleRadioBtn" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Female"
-            android:id="@+id/femaleRadioBtn"
-            android:layout_gravity="center_horizontal" />
-    </RadioGroup>
-
-    <Button
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/submit"
-        android:id="@+id/addstudentbtn"
-        android:layout_below="@+id/radioGroup"
-        android:layout_centerHorizontal="true" />
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:fillViewport="false"
+        android:id="@+id/scrollView" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:hint="Registration Number"
+            android:id="@+id/addStudentAdmno" />
+
+        <EditText
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/addStudentAdmno"
+            android:inputType="textPersonName"
+            android:hint="Name"
+            android:ems="10"
+            android:id="@+id/addStudentName" />
+
+        <EditText
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:hint="Parent's email"
+            android:layout_below="@+id/addStudentName"
+            android:layout_centerHorizontal="true"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/addParentEmail" />
+
+        <EditText
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Parent's Phone"
+            android:layout_below="@+id/addParentEmail"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/addParentPhone" />
+
+        <EditText
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below = "@+id/addParentPhone"
+            android:hint="School Name"
+            android:id="@+id/addStudentSchool" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/addStudentSchool"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/studentdob" />
+
+            <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below = "@+id/studentdob"
+            android:id="@+id/radioGroup">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:id="@+id/maleRadioBtn" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:id="@+id/femaleRadioBtn" />
+        </RadioGroup>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:id="@+id/addStudentBtn"
+            android:layout_below="@+id/radioGroup"
+            android:layout_centerHorizontal="true" />
+
+
+         </RelativeLayout>
+
+    </ScrollView>
+
 
 </RelativeLayout>
