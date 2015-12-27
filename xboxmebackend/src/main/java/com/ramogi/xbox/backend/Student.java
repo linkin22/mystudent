@@ -13,6 +13,7 @@ import java.util.Date;
 public class Student {
 
     @Id
+    Long id;
     private String parentemail;
     private String admno;
     @Index
@@ -26,6 +27,14 @@ public class Student {
     private String tcomments;
     private String createdby;
     private Date createdate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTcomments() {
         return tcomments;

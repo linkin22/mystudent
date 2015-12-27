@@ -41,6 +41,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -415,8 +416,24 @@ public class TeacherActivity extends Activity {
 
     }
 
-    private final void stopprogress(){
-        showProgress(false);
+    public static class AddParentFragment extends Fragment {
+        public static final String ARG_PLANET_NUMBER = "planet_number";
+
+        public AddParentFragment() {
+            // Empty constructor required for fragment subclasses
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_addparent, container, false);
+
+            AutoCompleteTextView searchStudentAuto =
+                    (AutoCompleteTextView)rootView.findViewById(R.id.searchStudentAutoComplete);
+
+
+            return rootView;
+        }
     }
 
     public static class TeacherExamFragment extends Fragment{

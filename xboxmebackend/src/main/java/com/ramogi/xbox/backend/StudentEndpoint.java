@@ -149,6 +149,35 @@ public class StudentEndpoint {
         return CollectionResponse.<Student>builder().setItems(studentList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
 
+
+    /**
+     * List all entities.
+     *
+     * @param cursor used for pagination to determine which page to return
+     * @param limit  the maximum number of entries to return
+     * @return a response that encapsulates the result list and the next page token/cursor
+     */
+    @ApiMethod(
+            name = "liststudents",
+            path = "students/{schoolname}",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public CollectionResponse<Student> listStudents(@Nullable @Named("cursor") String cursor,
+                                                    @Nullable @Named("limit") Integer limit,
+                                                    @Named("schoolname") String schoolname) {
+        limit = limit == null ? DEFAULT_LIST_LIMIT : limit;
+        Query<Student> query = ofy().load().type(Student.class).filter("schoolname", schoolname).limit(limit);
+        if (cursor != null) {
+            query = query.startAt(Cursor.fromWebSafeString(cursor));
+        }
+        QueryResultIterator<Student> queryIterator = query.iterator();
+        List<Student> studentList = new ArrayList<Student>(limit);
+        while (queryIterator.hasNext()) {
+            studentList.add(queryIterator.next());
+        }
+        return CollectionResponse.<Student>builder().setItems(studentList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
+    }
+
+
     private void checkExists(String parentemail) throws NotFoundException {
         try {
             ofy().load().type(Student.class).id(parentemail).safe();
