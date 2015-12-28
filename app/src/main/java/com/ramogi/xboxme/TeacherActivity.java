@@ -458,6 +458,8 @@ public class TeacherActivity extends Activity {
 
                     Log.v("OnItemClick ", " position "+position);
 
+                    Log.v("OnItemClick ", " value "+parent.getItemAtPosition(position));
+
                 }
             });
 
