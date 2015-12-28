@@ -79,7 +79,8 @@
         </activity>
         <activity
             android:name=".Unknown"
-            android:label="@string/title_activity_sign_in" >
+            android:label="@string/title_activity_sign_in"
+            android:theme="@style/Theme.AppCompat">
         </activity>
         <activity
             android:name=".ChooserActivity"

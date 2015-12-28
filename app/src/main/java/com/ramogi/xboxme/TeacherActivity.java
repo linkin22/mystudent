@@ -54,6 +54,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.ramogi.xbox.backend.studentApi.model.Student;
 import com.ramogi.xbox.backend.teacherApi.model.Teacher;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -241,7 +242,7 @@ public class TeacherActivity extends Activity {
                 fragment = new AddStudentFragment();
                 break;
             case 2:
-                Toast.makeText(this,"Third",Toast.LENGTH_SHORT).show();
+                fragment = new AddParentFragment();
                 break;
             case 3:
                 //fragment = new ReadFragment();
@@ -426,11 +427,118 @@ public class TeacherActivity extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_addparent, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_addparent, container, false);
 
-            AutoCompleteTextView searchStudentAuto =
+            final AutoCompleteTextView searchStudentAuto =
                     (AutoCompleteTextView)rootView.findViewById(R.id.searchStudentAutoComplete);
 
+      /*      final ListView listview = null;
+
+            // ListView Item Click Listener
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+
+                    // ListView Clicked item index
+                    int itemPosition     = position;
+
+                    // ListView Clicked item value
+                    String  itemValue    = (String) listview.getItemAtPosition(position);
+
+                    // Show Alert
+                    Toast.makeText(getActivity().getApplicationContext().getApplicationContext(),
+                            "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
+                            .show();
+
+                }
+
+            });
+            */
+
+
+
+
+        searchStudentAuto.setThreshold(1);
+
+
+
+            //Set adapter to AutoCompleteTextView
+            //textView.setAdapter(adapter);
+            searchStudentAuto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    Log.v("OnItemSelected ", " position "+position);
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            searchStudentAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Log.v("OnItemClick ", " position "+position);
+
+                }
+            });
+
+
+            QueryOneTeacherCallback qotc = new QueryOneTeacherCallback() {
+                @Override
+                public void querycomplete(Teacher teacher) {
+
+                    Log.v("queryteacher callback"," "+teacher.getTschool());
+
+                    QueryStudentsCallback qscb = new QueryStudentsCallback() {
+                        @Override
+                        public void querycomplete(List<Student> students) {
+
+                            if(students.size()<1){
+
+                            }
+                            else {
+
+                                Log.v("querystudent callback ", " " + students.size());
+
+                                String[] names = new String[students.size()];
+
+                                for (int i = 0; i < students.size(); i++) {
+
+                                    names[i] = students.get(i).getStudentname();
+
+                                    Log.v(" student names ", " " + names[i]);
+
+                                }
+
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                                        getActivity().getApplication().getApplicationContext(),
+                                        android.R.layout.simple_list_item_1, names);
+
+                                searchStudentAuto.setAdapter(adapter);
+                            }
+
+                            //listview.setAdapter(adapter);
+
+                        }
+                    };
+
+                    QueryStudents queryStudents = new QueryStudents(100,qscb,credential,teacher.getTschool());
+                    queryStudents.execute();
+
+
+                }
+            };
+
+            Log.v(" Teacher's email ", email);
+
+            QueryOneTeacher queryOneTeacher = new QueryOneTeacher(email,qotc,credential);
+            queryOneTeacher.execute();
 
             return rootView;
         }

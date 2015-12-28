@@ -1,6 +1,5 @@
 package com.ramogi.xboxme;
 
-import com.ramogi.xbox.backend.gamersLocationApi.model.GamersLocation;
 import com.ramogi.xbox.backend.teacherApi.model.Teacher;
 
 import java.util.List;

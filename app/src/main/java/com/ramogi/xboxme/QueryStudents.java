@@ -38,23 +38,22 @@ public class QueryStudents extends AsyncTask<Void, Void, CollectionResponseStude
         CollectionResponseStudent student = null;
 
         try {
-            if (myApiService == null) { // Only do this once
+            if (myApiService == null)
+            {
                 StudentApi.Builder builder = new StudentApi.Builder(
                         AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), credential)
-                        // options for running against local devappserver
-                        // - 10.0.2.2 is localhost's IP address in Android emulator
-                        // - turn off compression when running against local devappserver
                         .setRootUrl("https://" + Constants.PROJECT_ID + ".appspot.com/_ah/api/")
                         .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                             @Override
-                            public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
+                            public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
+                                    throws IOException {
                                 abstractGoogleClientRequest.setDisableGZipContent(true);
                             }
                         });
-                // end options for devappserver
                 myApiService = builder.build();
             }
-            student = myApiService.list().execute();
+           //student = myApiService.list().execute();
+           student = myApiService.liststudents(schoolname).execute();
 
             }catch(IOException e){
                 //Log.v("builder/do background", e.toString());

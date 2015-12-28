@@ -155,11 +155,12 @@ public class StudentEndpoint {
      *
      * @param cursor used for pagination to determine which page to return
      * @param limit  the maximum number of entries to return
+     * @param schoolname the students of the school
      * @return a response that encapsulates the result list and the next page token/cursor
      */
     @ApiMethod(
             name = "liststudents",
-            path = "students/{schoolname}",
+            path = "schoolname",
             httpMethod = ApiMethod.HttpMethod.GET)
     public CollectionResponse<Student> listStudents(@Nullable @Named("cursor") String cursor,
                                                     @Nullable @Named("limit") Integer limit,
