@@ -367,6 +367,8 @@ public class TeacherActivity extends Activity {
 
             int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
                             "drawable", getActivity().getPackageName());
+
+
             ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
             getActivity().setTitle(planet);
             return rootView;
@@ -425,43 +427,14 @@ public class TeacherActivity extends Activity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_addparent, container, false);
 
+
+
             final AutoCompleteTextView searchStudentAuto =
                     (AutoCompleteTextView)rootView.findViewById(R.id.searchStudentAutoComplete);
-
-      /*      final ListView listview = null;
-
-            // ListView Item Click Listener
-            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
-
-                    // ListView Clicked item index
-                    int itemPosition     = position;
-
-                    // ListView Clicked item value
-                    String  itemValue    = (String) listview.getItemAtPosition(position);
-
-                    // Show Alert
-                    Toast.makeText(getActivity().getApplicationContext().getApplicationContext(),
-                            "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                            .show();
-
-                }
-
-            });
-            */
-
-
-
-
-        searchStudentAuto.setThreshold(1);
-
 
 
             //Set adapter to AutoCompleteTextView
@@ -516,11 +489,19 @@ public class TeacherActivity extends Activity {
 
                                 }
 
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                                        getActivity().getApplication().getApplicationContext(),
-                                        android.R.layout.simple_list_item_1, names);
+                                String[] COUNTRIES = new String[] {
+                                        "Belgium", "France", "Italy", "Germany", "Spain", "Ghana"
+                                };
 
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                                        rootView.getContext(),
+                                        android.R.layout.simple_list_item_1, COUNTRIES);
+
+
+
+                                searchStudentAuto.setThreshold(1);
                                 searchStudentAuto.setAdapter(adapter);
+
                             }
 
                             //listview.setAdapter(adapter);
