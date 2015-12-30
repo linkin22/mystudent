@@ -8,7 +8,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
         android:text="Your name"
-        android:id="@+id/addstudentname"
+        android:id="@+id/studentname"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -19,7 +19,7 @@
         android:layout_margin="20dp"
         android:text="Your email"
         android:id="@+id/addparentemail"
-        android:layout_below="@+id/addstudentname"
+        android:layout_below="@+id/studentname"
         android:layout_centerHorizontal="true" />
 
     <TextView

@@ -20,58 +20,56 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Student Name"
+        android:layout_alignParentTop="true"
+        android:hint="Enter Name of Student"
         android:id="@+id/searchStudentAutoComplete" />
 
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/tname"
-        android:id="@+id/addstudentname"
-        android:layout_below = "@+id/searchStudentAutoComplete"
-        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/temail"
-        android:layout_below="@+id/addstudentname"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/addparentemail"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:layout_below="@+id/searchStudentAutoComplete"
+                android:layout_marginBottom="20dp"
+                android:layout_centerHorizontal="true"
+                android:hint="Student Information"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/studentInfoMultiText" />
 
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/tschool"
-        android:id="@+id/addstudentschool"
-        android:layout_below="@+id/addparentemail"
-        android:layout_centerHorizontal="true"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/studentInfoMultiText"
+                android:hint="Parent Email"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/parentEmail" />
 
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/tmobile"
-        android:id="@+id/addstudentphone"
-        android:layout_below="@+id/addstudentschool"
-        android:layout_centerHorizontal="true" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/parentEmail"
+                android:hint="Parent Phone (optional)"
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/parentPhone" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add parent"
-        android:id="@+id/edittprofilebtn"
-        android:layout_below="@+id/addstudentphone"
-        android:layout_centerHorizontal="true" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add parent"
+                android:id="@+id/addParentBtn"
+                android:layout_below="@+id/parentPhone"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 

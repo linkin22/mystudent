@@ -78,6 +78,7 @@
                 android:layout_margin="5dp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/addStudentSchool"
+                android:hint="Student date of birth"
                 android:inputType="date"
                 android:ems="10"
                 android:id="@+id/studentdob" />

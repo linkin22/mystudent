@@ -9,7 +9,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
         android:text="@string/tname"
-        android:id="@+id/addstudentname"
+        android:id="@+id/studentname"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -19,7 +19,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
         android:text="@string/temail"
-        android:layout_below="@+id/addstudentname"
+        android:layout_below="@+id/studentname"
         android:layout_centerHorizontal="true"
         android:id="@+id/addparentemail"/>
 
