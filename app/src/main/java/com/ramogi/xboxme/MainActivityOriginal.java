@@ -1,9 +1,8 @@
 package com.ramogi.xboxme;
-
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
+//import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,18 +22,16 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.plus.Plus;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.ramogi.xbox.backend.gamersLocationApi.model.GamersLocation;
-import com.ramogi.xbox.backend.roleApi.model.Role;
-
-//import android.net.Uri;
 
 
 /**
  * Activity to demonstrate basic retrieval of the Google user's ID, email address, and basic
  * profile.
  */
-public class Mystudent extends AppCompatActivity implements
+public class MainActivityOriginal extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -43,8 +40,8 @@ public class Mystudent extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
-    private TextView mStatusTextView, mDetailsTextView;
-        //    mGamerTagTextView, mLatxTextView, mLongyTextView;
+    private TextView mStatusTextView, mDetailsTextView,
+            mGamerTagTextView, mLatxTextView, mLongyTextView;
     private ProgressDialog mProgressDialog;
     private Location mLastLocation, mSavedLocation;
     private double mylat,mylong;
@@ -55,31 +52,31 @@ public class Mystudent extends AppCompatActivity implements
     private GoogleAccountCredential credential;
     //private InsertPlus insertPlus;
     private GamersLocation gamersLocation;
-   // private EditText mGamerTagInput;
+    private EditText mGamerTagInput;
     private Intent detailIntent;
     //private Uri myPhotoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signin);
+        setContentView(R.layout.activity_main);
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
         mDetailsTextView = (TextView) findViewById(R.id.detail);
-        //mGamerTagTextView = (TextView) findViewById(R.id.gamertagTextView);
-       // mLatxTextView = (TextView) findViewById(R.id.latxTextView);
-        //mLongyTextView = (TextView) findViewById(R.id.longyTextView);
-       // mGamerTagInput = (EditText) findViewById(R.id.gamerTagInput);
+        mGamerTagTextView = (TextView) findViewById(R.id.gamertagTextView);
+        mLatxTextView = (TextView) findViewById(R.id.latxTextView);
+        mLongyTextView = (TextView) findViewById(R.id.longyTextView);
+        mGamerTagInput = (EditText) findViewById(R.id.gamerTagInput);
 
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.disconnect_button).setOnClickListener(this);
-       // findViewById(R.id.locationbtn).setOnClickListener(this);
+        findViewById(R.id.locationbtn).setOnClickListener(this);
 
-        //new GcmRegistrationAsyncTask(this).execute();
+        new GcmRegistrationAsyncTask(this).execute();
 
         gamersLocation = new GamersLocation();
         detailIntent = new Intent(getApplicationContext(), CustomMarker.class);
@@ -222,8 +219,8 @@ public class Mystudent extends AppCompatActivity implements
                 mylat = mLastLocation.getLatitude();
                 mylong = mLastLocation.getLongitude();
 
-                //mLatxTextView.setText(""+mylat);
-                //mLongyTextView.setText(""+mylong);
+                mLatxTextView.setText(""+mylat);
+                mLongyTextView.setText(""+mylong);
             }
             else {
                 mLastLocation = mSavedLocation;
@@ -232,8 +229,8 @@ public class Mystudent extends AppCompatActivity implements
                     mylat = mLastLocation.getLatitude();
                     mylong = mLastLocation.getLongitude();
 
-                    //mLatxTextView.setText(""+mylat);
-                   // mLongyTextView.setText(""+mylong);
+                    mLatxTextView.setText(""+mylat);
+                    mLongyTextView.setText(""+mylong);
                 }
             }
 
@@ -249,7 +246,6 @@ public class Mystudent extends AppCompatActivity implements
             credential =
                     GoogleAccountCredential.usingAudience(this,"server:client_id:"+Constants.WEB_CLIENT_ID);
             setAccountName(acct.getEmail());
-            //uploadLocation();
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
@@ -272,9 +268,8 @@ public class Mystudent extends AppCompatActivity implements
             mylat = mLastLocation.getLatitude();
             mylong = mLastLocation.getLongitude();
 
-            //mLatxTextView.setText(""+mylat);
-            //mLongyTextView.setText(""+mylong);
-            //uploadLocation();
+            mLatxTextView.setText(""+mylat);
+            mLongyTextView.setText(""+mylong);
         }
         else {
             mLastLocation = mSavedLocation;
@@ -283,9 +278,8 @@ public class Mystudent extends AppCompatActivity implements
                 mylat = mLastLocation.getLatitude();
                 mylong = mLastLocation.getLongitude();
 
-               // mLatxTextView.setText(""+mylat);
-               // mLongyTextView.setText(""+mylong);
-               // uploadLocation();
+                mLatxTextView.setText(""+mylat);
+                mLongyTextView.setText(""+mylong);
             }
         }
     }
@@ -353,102 +347,26 @@ public class Mystudent extends AppCompatActivity implements
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-//            findViewById(R.id.locationbtn).setEnabled(true);
-
-            uploadLocation();
-            queryRole(getCurrentUserEmail());
+            findViewById(R.id.locationbtn).setEnabled(true);
 
         } else {
             mStatusTextView.setText(R.string.signed_out);
             mDetailsTextView.setText(R.string.no_email);
 
-           // mLatxTextView.setText("");
-            //mLongyTextView.setText("");
+            mLatxTextView.setText("");
+            mLongyTextView.setText("");
 
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
-          //  findViewById(R.id.locationbtn).setEnabled(false);
+            findViewById(R.id.locationbtn).setEnabled(false);
         }
-    }
-
-    private void queryRole(String email){
-
-        QueryRoleCallback qcb = new QueryRoleCallback() {
-            @Override
-            public void querycomplete(Role role) {
-
-                afterQueryRole(role);
-
-            }
-        };
-
-        QueryRole queryRole = new QueryRole(email,qcb,getCredential());
-        queryRole.execute();
-
-
-    }
-
-    private void afterQueryRole(Role role){
-
-        String myrole = "siko";
-        try {
-            myrole = role.getRole();
-            myrole.trim();
-        }
-        catch (java.lang.NullPointerException e){
-
-            myrole = "siko";
-
-        }
-
-        switch (myrole){
-            case "S":
-                //Toast.makeText(this, "I'm an S", Toast.LENGTH_LONG).show();
-
-                Intent superadmin = new Intent(getApplicationContext(), Superadmin.class);
-                superadmin.putExtra("emailadd",getCurrentUserEmail());
-                superadmin.putExtra("name", getCurrentUserDisplayName());
-                startActivity(superadmin);
-
-                break;
-            case "T":
-                Intent teacherActivity = new Intent(getApplicationContext(), TeacherActivity.class);
-                teacherActivity.putExtra("emailadd",getCurrentUserEmail());
-                teacherActivity.putExtra("name", getCurrentUserDisplayName());
-                startActivity(teacherActivity);
-
-                break;
-            case "P":
-                break;
-            case "TP":
-                Intent tpadmin = new Intent(getApplicationContext(), TPAdmin.class);
-                tpadmin.putExtra("emailadd",getCurrentUserEmail());
-                tpadmin.putExtra("name", getCurrentUserDisplayName());
-                startActivity(tpadmin);
-                break;
-            case "PT":
-                Intent tpadmin1 = new Intent(getApplicationContext(), TPAdmin.class);
-                tpadmin1.putExtra("emailadd",getCurrentUserEmail());
-                tpadmin1.putExtra("name", getCurrentUserDisplayName());
-                startActivity(tpadmin1);
-
-                break;
-            default:
-                Intent unknown = new Intent(getApplicationContext(), Unknown.class);
-                unknown.putExtra("emailadd",getCurrentUserEmail());
-                unknown.putExtra("name", getCurrentUserDisplayName());
-                startActivity(unknown);
-
-                break;
-        }
-
     }
 
     private void uploadLocation(){
 
         //Toast.makeText(this,"updatelocation()",Toast.LENGTH_LONG).show();
 
-       // String myGamerTag = mGamerTagInput.getText().toString().trim();
+        String myGamerTag = mGamerTagInput.getText().toString().trim();
 
         Log.i("upload location ", " " + getCurrentUserDisplayName() + " " + getCurrentUserEmail() +
                 " " + mylat + " " + mylong + " " + getMyPhoto());
@@ -460,27 +378,25 @@ public class Mystudent extends AppCompatActivity implements
         gamersLocation.setPhotoPath(getMyPhoto());
             //gamersLocation.setPhotoURI(myPhotoURI);
 
-        //if(!(myGamerTag.isEmpty())) {
-            //gamersLocation.setGamertag(myGamerTag);
-       /// }
-       // else {
+        if(!(myGamerTag.isEmpty())) {
+            gamersLocation.setGamertag(myGamerTag);
+        }
+        else {
             gamersLocation.setGamertag("Anonymous");
-       // }
+        }
         Log.v("upload location ", gamersLocation.getPhotoPath());
 
         InsertPlus insertPlus = new InsertPlus(gamersLocation,getApplicationContext(),getCredential());
         insertPlus.execute();
 
         //Toast.makeText(this,"updated",Toast.LENGTH_short).show();
-/*
+
         detailIntent.putExtra("userdisplayname", getCurrentUserDisplayName());
         detailIntent.putExtra("mylat",mylat);
         detailIntent.putExtra("mylong",mylong);
         detailIntent.putExtra("usermail", getCurrentUserEmail());
         detailIntent.putExtra("urlphoto", getMyPhoto());
         startActivity(detailIntent);
-
-        */
 
     }
 
@@ -502,8 +418,6 @@ public class Mystudent extends AppCompatActivity implements
                 break;
         }
     }
-
-
 
     /**
      * Stores activity data in the Bundle.

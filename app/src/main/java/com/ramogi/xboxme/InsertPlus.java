@@ -72,7 +72,7 @@ public class InsertPlus extends AsyncTask<GamersLocation, Void, String> {
 
         } catch (IOException e) {
             //Log.v("builder/do background  ", e.toString());
-            Toast.makeText(context, "Insert plus exception thrown", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Insert plus exception thrown", Toast.LENGTH_LONG).show();
         }
 
         return "updated";

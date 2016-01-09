@@ -272,7 +272,7 @@ public class TeacherActivity extends Activity {
             mDrawerLayout.closeDrawer(mDrawerList);
 
         } else {
-            Log.e("MainActivity", "Error in creating fragment");
+            Log.e("MainActivityOriginal", "Error in creating fragment");
         }
         // update the main content by replacing fragments
 

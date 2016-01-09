@@ -12,4 +12,14 @@ public class Constants {
     public static final String ANDROID_AUDIENCE = WEB_CLIENT_ID;
     public static final String EMAIL_SCOPE = "https://www.googleapis.com/auth/userinfo.email";
 
+    public static final String SERVER_URL = "https://mschoolapp.appspot.com";
+
+    public static final String API_KEY = "AIzaSyCea1ryWE0PKh25UxTYL4mLIsxo_nJlzzY";
+
+    /**
+     * Google API project id registered to use GCM.
+     */
+    public static final String SENDER_ID = "776511346301";
+
+
 }

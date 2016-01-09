@@ -27,6 +27,7 @@ public class Superadmin extends Activity implements
         findViewById(R.id.addteacherbtn).setOnClickListener(this);
         findViewById(R.id.teacherbtn).setOnClickListener(this);
         findViewById(R.id.parentbtn).setOnClickListener(this);
+        findViewById(R.id.chatbtn).setOnClickListener(this);
 
 
     }
@@ -53,9 +54,11 @@ public class Superadmin extends Activity implements
                 startActivity(teacherActivity);
 
                 break;
-            case R.id.locationbtn:
-                //Toast.makeText(this,"updated", Toast.LENGTH_SHORT).show();
-
+            case R.id.chatbtn:
+                Intent chatActivity = new Intent(getApplicationContext(), MainActivity.class);
+                chatActivity.putExtra("emailadd",email);
+                chatActivity.putExtra("name", displayname);
+                startActivity(chatActivity);
                 break;
         }
     }

@@ -33,6 +33,14 @@
         android:layout_below="@+id/teacherbtn"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Instachat"
+        android:id="@+id/chatbtn"
+        android:layout_below="@+id/parentbtn"
+
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
