@@ -51,6 +51,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.ramogi.xbox.backend.roleApi.model.Role;
 import com.ramogi.xbox.backend.studentApi.model.Student;
 import com.ramogi.xbox.backend.teacherApi.model.Teacher;
 
@@ -680,6 +681,14 @@ public class TeacherActivity extends Activity {
                     studentAddParent.setParentemail(parentemail.getText().toString().trim());
                     studentAddParent.setParentphone(tmobile);
 
+                    Role role = new Role();
+
+                    role.setRole("P");
+                    role.setCreatedby(email);
+
+                    InsertRole insertRole = new InsertRole(role,credential);
+                    insertRole.execute();
+
 
                     InsertStudent insertStudent = new InsertStudent(studentAddParent,insertStudentCallback, credential);
                     insertStudent.execute();
@@ -886,6 +895,14 @@ public class TeacherActivity extends Activity {
                     Log.v("button clicked ", student.getGender());
                     Log.v("button clicked ", student.getSchoolname());
                     Log.v("button clicked ", student.getStudentname());
+
+                    Role role = new Role();
+
+                    role.setRole("P");
+                    role.setCreatedby(email);
+
+                    InsertRole insertRole = new InsertRole(role,credential);
+                    insertRole.execute();
 
                     InsertStudent insertStudent = new InsertStudent(student,insertStudentCallback, credential);
                     insertStudent.execute();

@@ -30,10 +30,11 @@ public class InsertRole extends AsyncTask<Role, Void, String> {
     private Context context;
     private GoogleAccountCredential credential;
     public Role role;
+    //private InsertRoleCallback insertRoleCallback;
 
-    public InsertRole(Role role, Context context, GoogleAccountCredential credential) {
+    public InsertRole(Role role, GoogleAccountCredential credential) {
         setRole(role);
-        this.context = context;
+        //this.context = context;
         this.credential = credential;
     }
 
@@ -79,8 +80,9 @@ public class InsertRole extends AsyncTask<Role, Void, String> {
     @Override
     protected void onPostExecute(String me) {
         //for (Quote q : result) {
-        Toast.makeText(context, me, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, me, Toast.LENGTH_LONG).show();
         // }
+
 
     }
 

@@ -131,7 +131,7 @@ public class MessagesFragment extends ListFragment implements LoaderManager.Load
 				null,
 				DataProvider.COL_FROM + " = ? or " + DataProvider.COL_TO + " = ?",
 				new String[]{profileEmail, profileEmail},
-				DataProvider.COL_AT + " DESC");
+				DataProvider.COL_AT + " ASC");
 		return loader;
 	}
 

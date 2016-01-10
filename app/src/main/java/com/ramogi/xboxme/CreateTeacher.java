@@ -97,7 +97,7 @@ public class CreateTeacher extends Activity implements
                     role.setRole(myrole);
                     role.setCreatedby(email);
 
-                    InsertRole insertRole = new InsertRole(role,getApplicationContext(),getCredential());
+                    InsertRole insertRole = new InsertRole(role,getCredential());
                     insertRole.execute();
 
                     break;
@@ -119,7 +119,7 @@ public class CreateTeacher extends Activity implements
             role1.setEmail(temail);
             role1.setCreatedby(email);
 
-            InsertRole insertRole = new InsertRole(role1,getApplicationContext(),getCredential());
+            InsertRole insertRole = new InsertRole(role1,getCredential());
             insertRole.execute();
 
         }
