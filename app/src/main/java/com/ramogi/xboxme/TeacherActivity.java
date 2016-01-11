@@ -256,7 +256,7 @@ public class TeacherActivity extends Activity {
                 Toast.makeText(this,"Fourth",Toast.LENGTH_SHORT).show();
                 break;
             case 4:
-                Toast.makeText(this,"Fifth",Toast.LENGTH_SHORT).show();
+                fragment = new ExamFragment();
                 break;
 
             default:
@@ -425,6 +425,72 @@ public class TeacherActivity extends Activity {
         }
 
     }
+
+
+    public static class ExamFragment extends Fragment{
+
+        public ExamFragment(){
+
+
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+
+            final View rootView = inflater.inflate(R.layout.fragment_exam, container, false);
+
+            rootView.findViewById(R.id.tab1).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(rootView.getContext(),"recipe",Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            rootView.findViewById(R.id.tab2).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(rootView.getContext(),"wine",Toast.LENGTH_SHORT).show();
+                }
+            });
+            rootView.findViewById(R.id.tab3).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(rootView.getContext(),"profile",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            QueryOneTeacherCallback qotc = new QueryOneTeacherCallback() {
+                @Override
+                public void querycomplete(Teacher teacher) {
+
+                    TextView tprofilename = (TextView)rootView.findViewById(R.id.studentname);
+                    tprofilename.setText(teacher.getTname());
+                    TextView tprofileschool = (TextView)rootView.findViewById(R.id.addstudentschool);
+                    tprofileschool.setText(teacher.getTschool());
+                    TextView tprofileemail = (TextView)rootView.findViewById(R.id.addparentemail);
+                    tprofileemail.setText(teacher.getEmail());
+                    TextView tprofilephone = (TextView)rootView.findViewById(R.id.addstudentphone);
+                    tprofilephone.setText("" + teacher.getTmobile());
+
+                    getActivity().setTitle("My Student Exam");
+
+                    //stopprogress();
+
+
+                }
+            };
+
+            QueryOneTeacher queryOneTeacher = new QueryOneTeacher(email,qotc,credential);
+            queryOneTeacher.execute();
+
+            return rootView;
+
+
+        }
+
+    }
+
 
     public static class AddParentFragment extends Fragment {
         public static final String ARG_PLANET_NUMBER = "planet_number";

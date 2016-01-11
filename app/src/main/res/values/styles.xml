@@ -41,4 +41,23 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="tab_btn" parent="@style/btn">
+        <item name="android:textSize">@dimen/txt_15sp</item>
+        <item name="android:textColor">@color/tab_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/btn_tab</item>
+        <item name="android:paddingBottom">@dimen/pad_5dp</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="btn" parent="@android:style/Widget.Holo.Light.Button">
+        <item name="android:minWidth">1.0dip</item>
+        <item name="android:minHeight">1.0dip</item>
+    </style>
+    <style name="editext_normal" parent="@android:style/Widget.EditText">
+        <item name="android:textSize">@dimen/txt_16sp</item>
+        <item name="android:ems">10</item>
+        <item name="android:drawablePadding">@dimen/pad_10dp</item>
+        <item name="android:inputType">textEmailAddress</item>
+    </style>
+
 </resources>
