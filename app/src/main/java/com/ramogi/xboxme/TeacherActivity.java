@@ -443,20 +443,20 @@ public class TeacherActivity extends Activity {
             rootView.findViewById(R.id.tab1).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(rootView.getContext(),"recipe",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(rootView.getContext(),"details",Toast.LENGTH_SHORT).show();
 
                 }
             });
             rootView.findViewById(R.id.tab2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(rootView.getContext(),"wine",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(rootView.getContext(),"summary",Toast.LENGTH_SHORT).show();
                 }
             });
             rootView.findViewById(R.id.tab3).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(rootView.getContext(),"profile",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(rootView.getContext(),"comments",Toast.LENGTH_SHORT).show();
                 }
             });
 

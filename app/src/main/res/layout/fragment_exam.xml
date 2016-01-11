@@ -14,7 +14,7 @@
             android:id="@+id/tab1"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
-            android:text="recipes"
+            android:text="details"
             android:layout_weight="1.0" style="@style/tab_btn" />
 
         <View
@@ -29,7 +29,7 @@
             android:id="@+id/tab2"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
-            android:text="wine"
+            android:text="summary"
             android:layout_weight="1.0" style="@style/tab_btn" />
 
         <View
@@ -44,7 +44,7 @@
             android:id="@+id/tab3"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
-            android:text="profile"
+            android:text="comments"
             android:layout_weight="1.0" style="@style/tab_btn" />
 
     </LinearLayout>
