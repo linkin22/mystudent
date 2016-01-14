@@ -30,6 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -408,7 +409,7 @@ public class TeacherActivity extends Activity {
                     TextView tprofilephone = (TextView)rootView.findViewById(R.id.addstudentphone);
                     tprofilephone.setText("" + teacher.getTmobile());
 
-                    getActivity().setTitle(R.string.teacherfragmentprofile);
+                    getActivity().setTitle("Profile");
 
                     //stopprogress();
 
@@ -431,35 +432,78 @@ public class TeacherActivity extends Activity {
 
         public ExamFragment(){
 
-
         }
 
+
+
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            final View rootView = inflater.inflate(R.layout.fragment_exam, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_examdetail, container, false);
+
+            //TextView tprofilename = (TextView)rootView.findViewById(R.id.studentname);
+            //tprofilename.setText("Exam details");
+
+/*
 
             rootView.findViewById(R.id.tab1).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(rootView.getContext(),"details",Toast.LENGTH_SHORT).show();
 
+                   // View namebar = rootView.findViewById(R.id.addstudentphone);
+                   // ((ViewGroup) namebar.getParent()).removeView(namebar);
+
+                    //View newrootView = inflater.inflate(R.layout.fragment_teacherprofile, container, false);
+
+                    //((ViewGroup) rootView.getParent()).removeAllViews();
+
+                    //((ViewGroup) rootView.getParent()).addView(newrootView);
+
+                    MyProfileFragment myProfileFragment = new MyProfileFragment();
+                    if (myProfileFragment != null) {
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.content_frame, myProfileFragment).commit();
+
+
+                    } else {
+                        Log.e("MainActivity", "Error in creating fragment");
+                    }
+
+
+
+
+
+
+
                 }
             });
+
+            */
+
             rootView.findViewById(R.id.tab2).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(rootView.getContext(),"summary",Toast.LENGTH_SHORT).show();
+
+                    ExamSummaryFragment myProfileFragment = new ExamSummaryFragment();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, myProfileFragment).commit();
+
+
+
                 }
             });
             rootView.findViewById(R.id.tab3).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(rootView.getContext(),"comments",Toast.LENGTH_SHORT).show();
+
+                    ExamCommentsFragment myProfileFragment = new ExamCommentsFragment();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, myProfileFragment).commit();
                 }
             });
-
+/*
             QueryOneTeacherCallback qotc = new QueryOneTeacherCallback() {
                 @Override
                 public void querycomplete(Teacher teacher) {
@@ -483,6 +527,8 @@ public class TeacherActivity extends Activity {
 
             QueryOneTeacher queryOneTeacher = new QueryOneTeacher(email,qotc,credential);
             queryOneTeacher.execute();
+
+            */
 
             return rootView;
 

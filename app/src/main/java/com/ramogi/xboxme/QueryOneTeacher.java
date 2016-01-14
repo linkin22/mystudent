@@ -37,13 +37,21 @@ public class QueryOneTeacher extends AsyncTask<Void, Void, Teacher> {
         this.email = email;
     }
 
+    QueryOneTeacher(String email, QueryOneTeacherCallback queryOneTeacherCallback ) {
+
+        this.credential = null;
+
+        this.queryOneTeacherCallback = queryOneTeacherCallback;
+        this.email = email;
+    }
+
     protected Teacher doInBackground(Void... unused) {
         Teacher teacher = null;
 
         try {
             if (myApiService == null) { // Only do this once
                 TeacherApi.Builder builder = new TeacherApi.Builder(
-                        AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), credential)
+                        AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(),null)
                         // options for running against local devappserver
                         // - 10.0.2.2 is localhost's IP address in Android emulator
                         // - turn off compression when running against local devappserver

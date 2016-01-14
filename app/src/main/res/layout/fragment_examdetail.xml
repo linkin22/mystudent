@@ -10,7 +10,7 @@
         android:id="@+id/lineartablayout">
 
         <Button
-            android:enabled="true"
+            android:enabled="false"
             android:id="@+id/tab1"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
@@ -61,48 +61,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
-        android:text="@string/tname"
+        android:text="Exam details tut tut"
         android:id="@+id/studentname"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/temail"
-        android:layout_below="@+id/studentname"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/addparentemail"/>
 
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/tschool"
-        android:id="@+id/addstudentschool"
-        android:layout_below="@+id/addparentemail"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="@string/tmobile"
-        android:id="@+id/addstudentphone"
-        android:layout_below="@+id/addstudentschool"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tedit"
-        android:id="@+id/edittprofilebtn"
-        android:layout_below="@+id/addstudentphone"
-        android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 
