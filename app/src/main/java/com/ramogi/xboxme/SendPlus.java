@@ -21,11 +21,14 @@ public class SendPlus extends AsyncTask<Void, Void, String> {
     private String regid;
     private static Messaging msgService = null;
     private SendPlusCallBack sendPlusCallBack;
+    private String from,to;
 
-    public SendPlus( String message, String regid, SendPlusCallBack sendPlusCallBack){
+    public SendPlus( String from, String to, String message, String regid, SendPlusCallBack sendPlusCallBack){
 
         //this.emailfrom = emailfrom;
         //this.emailto = emailto;
+        this.from = from;
+        this.to = to;
         this.message = message;
         this.regid = regid;
         this.sendPlusCallBack = sendPlusCallBack;
@@ -56,7 +59,7 @@ public class SendPlus extends AsyncTask<Void, Void, String> {
 
             try {
 
-                msgService.messagingEndpoint().sendOneMessage(message, regid);
+                msgService.messagingEndpoint().sendOneMessage(message, regid, from, to);
                 msg = "message sent";
             }
             catch (IOException io){

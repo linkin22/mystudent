@@ -32,7 +32,7 @@ public class InsertStudent extends AsyncTask<Student, Void, String> {
 
     private static StudentApi myApiService = null;
     private InsertStudentCallback insertStudentCallback;
-    private GoogleAccountCredential credential;
+    private GoogleAccountCredential credential = null;
     public Student student;
 
     public InsertStudent(Student student, InsertStudentCallback insertStudentCallback, GoogleAccountCredential credential) {
@@ -40,6 +40,13 @@ public class InsertStudent extends AsyncTask<Student, Void, String> {
         this.student = student;
         this.insertStudentCallback = insertStudentCallback;
         this.credential = credential;
+    }
+
+    public InsertStudent(Student student, InsertStudentCallback insertStudentCallback) {
+        //setStudent(student);
+        this.student = student;
+        this.insertStudentCallback = insertStudentCallback;
+
     }
 
     @Override

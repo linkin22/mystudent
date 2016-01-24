@@ -253,11 +253,15 @@ public class TeacherActivity extends Activity {
                 fragment = new AddParentFragment();
                 break;
             case 3:
+                fragment = new MainActivityFragment();
                 //fragment = new ReadFragment();
-                Toast.makeText(this,"Fourth",Toast.LENGTH_SHORT).show();
+                //Intent chatActivity = new Intent(getApplicationContext(), MainActivity.class);
+                //chatActivity.putExtra("emailadd",email);
+                //chatActivity.putExtra("name", displayname);
+                //startActivity(chatActivity);
                 break;
             case 4:
-                fragment = new ExamFragment();
+                fragment = new ExamDetailFragment();
                 break;
 
             default:
@@ -359,6 +363,8 @@ public class TeacherActivity extends Activity {
     /**
      * Fragment that appears in the "content_frame", shows a planet
      */
+
+    /*
     public static class PlanetFragment extends Fragment {
         public static final String ARG_PLANET_NUMBER = "planet_number";
 
@@ -480,7 +486,7 @@ public class TeacherActivity extends Activity {
                 }
             });
 
-            */
+
 
             rootView.findViewById(R.id.tab2).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -503,7 +509,7 @@ public class TeacherActivity extends Activity {
                     fragmentManager.beginTransaction().replace(R.id.content_frame, myProfileFragment).commit();
                 }
             });
-/*
+
             QueryOneTeacherCallback qotc = new QueryOneTeacherCallback() {
                 @Override
                 public void querycomplete(Teacher teacher) {
@@ -528,7 +534,7 @@ public class TeacherActivity extends Activity {
             QueryOneTeacher queryOneTeacher = new QueryOneTeacher(email,qotc,credential);
             queryOneTeacher.execute();
 
-            */
+
 
             return rootView;
 
@@ -539,7 +545,7 @@ public class TeacherActivity extends Activity {
 
 
     public static class AddParentFragment extends Fragment {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
+
 
 
         List<Student> students1 = new List<Student>() {
@@ -910,6 +916,8 @@ public class TeacherActivity extends Activity {
         }
     }
 
+
+
     public static class AddStudentFragment extends Fragment{
 
         public AddStudentFragment(){
@@ -1032,6 +1040,7 @@ public class TeacherActivity extends Activity {
         }
 
     }
+    */
 
     public String getEmail() {
         return email;

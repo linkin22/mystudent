@@ -11,9 +11,12 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -24,27 +27,29 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
  * @author appsrox.com
  *
  */
-public class MainActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivityFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 	
 	private SimpleCursorAdapter adapter;
 	private GoogleAccountCredential credential;
 	private String displayname;
 	private String email;
 	private SharedPreferences settings;
-	
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		setHasOptionsMenu(true);
 
 		//Bundle bundle = getIntent().getExtras();
 
 		//email = bundle.getString("emailadd");
 		//displayname = bundle.getString("name");
 
-        Log.v("Mainactivity ", " "+getLayoutInflater().toString());
+
 
 		
-		adapter = new SimpleCursorAdapter(this, 
+		adapter = new SimpleCursorAdapter(getActivity(),
 				R.layout.main_list_item,
 				null, 
 				new String[]{DataProvider.COL_NAME, DataProvider.COL_COUNT},
@@ -52,29 +57,25 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
 				0);
 		
 		adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-
-            @Override
-            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                switch (view.getId()) {
-                    case R.id.text2:
-                        int count = cursor.getInt(columnIndex);
-                        if (count > 0) {
-                            ((TextView) view).setText(String.format("%d new message%s", count, count == 1 ? "" : "s"));
-                        }
-                        return true;
-                }
-                return false;
-            }
-        });
+			
+			@Override
+			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				switch(view.getId()) {
+				case R.id.text2:
+					int count = cursor.getInt(columnIndex);
+					if (count > 0) {
+						((TextView)view).setText(String.format("%d new message%s", count, count==1 ? "" : "s"));
+					}
+					return true;					
+				}
+				return false;
+			}
+		});
 		
 		setListAdapter(adapter);
-		Log.v("Mainactivity ", " " + getListView().toString());
-
-        //getListView().toString();
 		
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayShowTitleEnabled(false);
-        Log.v("Mainactivity ", " " + getLayoutInflater().toString());
+		//ActionBar actionBar = getActionBar();
+		//actionBar.setDisplayShowTitleEnabled(false);
 		
 /*		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		
@@ -89,18 +90,31 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
 		});*/
 		
 		getLoaderManager().initLoader(0, null, this);
-
-        Log.v("Mainactivity ", " " + getListView().toString());
-
-
 	}
+
+    public MainActivityFragment(){
+
+    }
+/*
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+		return inflater.inflate(com.android.internal.R.layout.list_content_simple,
+				container, false);
+
+    }
+    */
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.maintwo, menu);
-		return true;
+		//getMenuInflater().inflate(R.menu.maintwo, menu);
+		//return true;
+        super.onCreateOptionsMenu(menu, menuInflater);
+        menuInflater.inflate(R.menu.maintwo, menu);
 	}
+
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,7 +126,7 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
 			return true;
 			
 		case R.id.action_settings:
-			Intent intent = new Intent(this, SettingsActivity.class);
+			Intent intent = new Intent(getActivity(), SettingsActivity.class);
 			startActivity(intent);
 			return true;			
 		}
@@ -120,8 +134,8 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
 	}
 	
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		Intent intent = new Intent(this, ChatActivity.class);
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		Intent intent = new Intent(getActivity(), ChatActivity.class);
 		//intent.putExtra("emailadd",email);
 		//intent.putExtra("name", displayname);
 		intent.putExtra(Common.PROFILE_ID, String.valueOf(id));
@@ -132,7 +146,7 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		CursorLoader loader = new CursorLoader(this, 
+		CursorLoader loader = new CursorLoader(getActivity(),
 				DataProvider.CONTENT_URI_PROFILE, 
 				new String[]{DataProvider.COL_ID, DataProvider.COL_NAME, DataProvider.COL_COUNT}, 
 				null, 

@@ -7,13 +7,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.ramogi.xboxme.client.GcmUtil;
 import com.ramogi.xboxme.client.ServerUtilities;
 
@@ -31,7 +28,7 @@ import java.io.IOException;
  * @author appsrox.com
  *
  */
-public class ChatActivity extends Activity implements MessagesFragment.OnFragmentInteractionListener, EditContactDialog.OnFragmentInteractionListener {
+public class ChatActivityFragment extends Activity implements MessagesFragment.OnFragmentInteractionListener, EditContactDialog.OnFragmentInteractionListener {
 
 	private EditText msgEdit;
 	private Button sendBtn;
@@ -65,7 +62,6 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
 		
 		registerReceiver(registrationStatusReceiver, new IntentFilter(Common.ACTION_REGISTER));
 		gcmUtil = new GcmUtil(getApplicationContext());
-		Log.v("chat activity "," oncreate gcmutil");
 	}
 	
 	@Override
@@ -121,25 +117,21 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
             protected String doInBackground(Void... params) {
                 String msg = "";
                 try {
-                    ServerUtilities.send(txt, profileEmail, Common.getPreferredEmail());
+                    ServerUtilities.send(txt, profileEmail,Common.getPreferredEmail());
                     
         			ContentValues values = new ContentValues(2);
         			values.put(DataProvider.COL_MSG, txt);
         			values.put(DataProvider.COL_TO, profileEmail);
         			getContentResolver().insert(DataProvider.CONTENT_URI_MESSAGES, values);
-					Log.v("Chat activity ", " is message sent?");
         			
                 } catch (IOException ex) {
                     msg = "Message could not be sent";
-					Log.v("Chat activity ", " message not sent");
                 }
                 return msg;
             }
 
             @Override
             protected void onPostExecute(String msg) {
-                Log.v("chat activity"," on post execute"+msg);
-
             	if (!TextUtils.isEmpty(msg)) {
             		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
             	}

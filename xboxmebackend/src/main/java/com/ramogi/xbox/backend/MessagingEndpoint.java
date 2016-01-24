@@ -89,7 +89,12 @@ public class MessagingEndpoint {
         }
     }
 
-    public void sendOneMessage(@Named("message") String message,@Named("regid")String regid) throws IOException {
+    public void sendOneMessage(@Named("message") String message,@Named("regid")String regid,
+                               @Named("from") String from, @Named("to") String to) throws IOException {
+
+        log.warning("sendOneMessage called");
+        log.warning(" send() from " + from + " to " + to + " message " + message + " reg id " +regid);
+
         if (message == null || message.trim().length() == 0) {
             log.warning("Not sending message because it is empty");
             return;
@@ -99,34 +104,20 @@ public class MessagingEndpoint {
             message = message.substring(0, 1000) + "[...]";
         }
         Sender sender = new Sender(API_KEY);
-        Message msg = new Message.Builder().addData("message", message).build();
-        /*
-        List<RegistrationRecord> records = ofy().load().type(RegistrationRecord.class).limit(10).list();
-        for (RegistrationRecord record : records) {
-            Result result = sender.send(msg, record.getRegId(), 5);
-            if (result.getMessageId() != null) {
-                log.info("Message sent to " + record.getRegId());
-                String canonicalRegId = result.getCanonicalRegistrationId();
-                if (canonicalRegId != null) {
-                    // if the regId changed, we have to update the datastore
-                    log.info("Registration Id changed for " + record.getRegId() + " updating to " + canonicalRegId);
-                    record.setRegId(canonicalRegId);
-                    ofy().save().entity(record).now();
-                }
-            } else {
-                String error = result.getErrorCodeName();
-                if (error.equals(Constants.ERROR_NOT_REGISTERED)) {
-                    log.warning("Registration Id " + record.getRegId() + " no longer registered with GCM, removing from datastore");
-                    // if the device is no longer registered with Gcm, remove it from the datastore
-                    ofy().delete().entity(record).now();
-                } else {
-                    log.warning("Error when sending message : " + error);
-                }
-            }
-        }
-        */
+        Message msg = new Message.Builder()
+//			.delayWhileIdle(true)
+                .addData(com.ramogi.xbox.backend.Constants.TO, to)
+                .addData(com.ramogi.xbox.backend.Constants.FROM, from)
+                .addData(com.ramogi.xbox.backend.Constants.MSG, message)
+                .build();
+
+        try{
 
         Result result = sender.send(msg,regid,5);
+
+            Contactplus contactplus = new Contactplus();
+            contactplus.setRegId(regid);
+            contactplus.setEmail(from);
         if (result.getMessageId() != null) {
             log.info("Message sent to " + regid);
             String canonicalRegId = result.getCanonicalRegistrationId();
@@ -135,6 +126,9 @@ public class MessagingEndpoint {
                 //log.info("Registration Id changed for " + regid + " updating to " + canonicalRegId);
                 //record.setRegId(canonicalRegId);
                // ofy().save().entity(record).now();
+                contactplus.setRegId(canonicalRegId);
+                ofy().save().entity(contactplus).now();
+
             }
         } else {
             String error = result.getErrorCodeName();
@@ -142,9 +136,15 @@ public class MessagingEndpoint {
                 log.warning("Registration Id " + regid + " no longer registered with GCM, removing from datastore");
                //if the device is no longer registered with Gcm, remove it from the datastore
                 //ofy().delete().entity(record).now();
+                ofy().delete().entity(contactplus).now();
             } else {
                 log.warning("Error when sending message : " + error);
             }
+        }
+
+            log.info("Result: " + result.toString());
+        } catch (IOException e) {
+            log.warning( e.getMessage());
         }
 
     }

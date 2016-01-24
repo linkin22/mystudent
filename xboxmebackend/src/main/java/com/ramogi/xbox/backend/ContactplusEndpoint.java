@@ -10,6 +10,12 @@ import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 
+import com.google.android.gcm.server.Constants;
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.Result;
+import com.google.android.gcm.server.Sender;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -40,7 +46,11 @@ public class ContactplusEndpoint {
 
     private static final Logger logger = Logger.getLogger(ContactplusEndpoint.class.getName());
 
+    //private static final Logger log = Logger.getLogger(MessagingEndpoint.class.getName());
+
     private static final int DEFAULT_LIST_LIMIT = 20;
+
+    private static final String API_KEY = System.getProperty("gcm.api.key");
 
     static {
         // Typically you would register this inside an OfyServive wrapper. See: https://code.google.com/p/objectify-appengine/wiki/BestPractices
@@ -148,6 +158,8 @@ public class ContactplusEndpoint {
         }
         return CollectionResponse.<Contactplus>builder().setItems(contactplusList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
+
+
 
     private void checkExists(String email) throws NotFoundException {
         try {

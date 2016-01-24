@@ -28,7 +28,7 @@ public class InsertRole extends AsyncTask<Role, Void, String> {
 
     private static RoleApi myApiService = null;
     private Context context;
-    private GoogleAccountCredential credential;
+    private GoogleAccountCredential credential = null;
     public Role role;
     //private InsertRoleCallback insertRoleCallback;
 
@@ -36,6 +36,12 @@ public class InsertRole extends AsyncTask<Role, Void, String> {
         setRole(role);
         //this.context = context;
         this.credential = credential;
+    }
+
+    public InsertRole(Role role) {
+        setRole(role);
+        //this.context = context;
+        //this.credential = credential;
     }
 
     @Override

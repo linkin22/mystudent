@@ -44,9 +44,12 @@ public class GcmUtil {
 		prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		
 		String regid = getRegistrationId();
+        Log.v("GCMUtil",regid);
 		if (regid.length() == 0) {
             registerBackground();
         } else {
+			Log.v("GCMUtil ","broadcast true "+regid);
+
         	broadcastStatus(true);
         }
 		gcm = GoogleCloudMessaging.getInstance(ctx);
@@ -131,6 +134,7 @@ public class GcmUtil {
 	 * application's shared preferences.
 	 */
 	private void registerBackground() {
+        Log.v("GCMUtil"," registerBackground");
 	    new AsyncTask<Void, Void, Boolean>() {
 	        @Override
 	        protected Boolean doInBackground(Void... params) {
@@ -142,6 +146,8 @@ public class GcmUtil {
 		                    gcm = GoogleCloudMessaging.getInstance(ctx);
 		                }
 		                String regid = gcm.register(Common.getSenderId());
+
+						Log.v("gcmutil","senderid "+Common.getSenderId()+" regid "+regid);
 	
 		                // You should send the registration ID to your com.approx.messenger.com.approx.messenger.server over HTTP,
 		                // so it can use GCM/HTTP or CCS to send messages to your app.
@@ -180,6 +186,7 @@ public class GcmUtil {
 	}
 	
 	private void broadcastStatus(boolean status) {
+        Log.v("GCMUtil ","broadcast status "+getRegistrationId());
     	Intent intent = new Intent(Common.ACTION_REGISTER);
         intent.putExtra(Common.EXTRA_STATUS, status ? Common.STATUS_SUCCESS : Common.STATUS_FAILED);
         ctx.sendBroadcast(intent);		

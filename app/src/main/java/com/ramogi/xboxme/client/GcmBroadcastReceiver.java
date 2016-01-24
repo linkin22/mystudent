@@ -46,7 +46,7 @@ public class GcmBroadcastReceiver extends BroadcastReceiver {
 				sendNotification("Send error", false);
 				
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-				sendNotification("Deleted messages on com.approx.messenger.com.approx.messenger.server", false);
+				sendNotification("Deleted messages on com.ramogi.chatapp.messenger.server", false);
 				
 			} else {
 				String msg = intent.getStringExtra(DataProvider.COL_MSG);

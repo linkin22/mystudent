@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class QueryStudents extends AsyncTask<Void, Void, CollectionResponseStudent> {
 
-    private GoogleAccountCredential credential;
+    private GoogleAccountCredential credential = null;
     private QueryStudentsCallback queryStudentsCallback ;
     private int limit;
     private static StudentApi myApiService = null;
@@ -29,6 +29,13 @@ public class QueryStudents extends AsyncTask<Void, Void, CollectionResponseStude
     QueryStudents(int limit, QueryStudentsCallback queryStudentsCallback, GoogleAccountCredential credential, String schoolname) {
 
         this.credential = credential;
+        this.limit = limit;
+        this.queryStudentsCallback = queryStudentsCallback;
+        this.schoolname = schoolname;
+    }
+
+    QueryStudents(int limit, QueryStudentsCallback queryStudentsCallback, String schoolname) {
+
         this.limit = limit;
         this.queryStudentsCallback = queryStudentsCallback;
         this.schoolname = schoolname;
