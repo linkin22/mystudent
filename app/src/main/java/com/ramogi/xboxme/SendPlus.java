@@ -58,8 +58,9 @@ public class SendPlus extends AsyncTask<Void, Void, String> {
             msgService = builder.build();
 
             try {
+                msgService.sendone(message, regid, from, to);
 
-                msgService.messagingEndpoint().sendOneMessage(message, regid, from, to);
+                //msgService.messagingEndpoint().sendOneMessage(message, regid, from, to);
                 msg = "message sent";
             }
             catch (IOException io){

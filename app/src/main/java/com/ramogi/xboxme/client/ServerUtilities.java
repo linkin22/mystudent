@@ -29,6 +29,7 @@ import com.ramogi.xbox.backend.messaging.Messaging.MessagingEndpoint;
 import com.ramogi.xboxme.Constants;
 
 import java.io.IOException;
+import java.util.ArrayList;
 //import java.util.Random;
 
 
@@ -57,26 +58,6 @@ public final class ServerUtilities {
      */
     public static void register(String email, String regId) {
         Log.i(TAG, "registering device (regId = " + regId + ")");
-        /*
-        String serverUrl = Common.getServerUrl() + "/register";
-        Map<String, String> params = new HashMap<String, String>();
-        params.put(Common.FROM, email);
-        params.put(Common.REG_ID, regId);
-        // Once GCM returns a registration id, we need to register it in the
-        // demo com.approx.messenger.com.approx.messenger.server. As the com.approx.messenger.com.approx.messenger.server might be down, we will retry it a couple
-        // times.
-        try {
-        	post(serverUrl, params, MAX_ATTEMPTS);
-        } catch (IOException e) {
-        }
-
-        //RegisterPlus registerPlus = new RegisterPlus(email,regId,credential);
-        */
-
-        //Date registerDate = new Date();
-       // registerDate.getTime();
-        //getRole().setCreated(new DateTime(new java.util.Date()));
-
 
         Contactplus contactplus = new Contactplus();
         contactplus.setEmail(email);
@@ -84,22 +65,6 @@ public final class ServerUtilities {
         contactplus.setRegisteredDate(new DateTime(new java.util.Date()));
 
         Log.v(" registertime ",contactplus.getRegisteredDate().toString());
-
-
-        /*
-
-        InsertContactCallback insertContactCallback = new InsertContactCallback() {
-            @Override
-            public void querycomplete(String result) {
-
-                Log.v("Register plus ", result);
-                //setResult(result);
-            }
-        };
-
-        InsertContact insertContact = new InsertContact(contactplus, insertContactCallback);
-        insertContact.execute();
-        */
 
         if (myRegisterApiService == null) {
             ContactplusApi.Builder builder = new ContactplusApi.Builder(
@@ -131,33 +96,6 @@ public final class ServerUtilities {
      * Unregister this account/device pair within the com.approx.messenger.com.approx.messenger.server.
      */
     public static void unregister( String email) {
-        //Log.i(TAG, "unregistering device (email = " + email + ")");
-        /*
-        String serverUrl = Common.getServerUrl() + "/unregister";
-        Map<String, String> params = new HashMap<String, String>();
-        params.put(Common.FROM, email);
-        try {
-            post(serverUrl, params, MAX_ATTEMPTS);
-        } catch (IOException e) {
-            // At this point the device is unregistered from GCM, but still
-            // registered in the com.approx.messenger.com.approx.messenger.server.
-            // We could try to unregister again, but it is not necessary:
-            // if the com.approx.messenger.com.approx.messenger.server tries to send a message to the device, it will get
-            // a "NotRegistered" error message and should unregister the device.
-        }
-
-
-        InsertContactCallback insertContactCallback = new InsertContactCallback() {
-            @Override
-            public void querycomplete(String result) {
-
-                Log.v("Unregister plus ", result);
-            }
-        };
-
-        RemoveContact removeContact = new RemoveContact(email,insertContactCallback);
-        removeContact.execute();
-        */
 
         if (myRegisterApiService == null) {
             ContactplusApi.Builder builder = new ContactplusApi.Builder(
@@ -209,10 +147,42 @@ public final class ServerUtilities {
             }
 
             Contactplus contactplus  = myRegisterApiService.get(to).execute();
-            Log.v(TAG,"email "+contactplus.getEmail()+" send reg id"+contactplus.getRegId());
+            //Log.v(TAG,"email "+contactplus.getEmail()+" send reg id"+contactplus.getRegId());
+
+        Log.v(TAG, " send() from " + from + " to " + to + " message " + msg + " reg id " + contactplus.getRegId());
+
+        final ArrayList<String> params = new ArrayList<String>(4);
+
+        params.add(0,msg);
+        params.add(1,contactplus.getRegId());
+        params.add(2,from);
+        params.add(3,to);
+
+        try{
+
+            Log.v(TAG," inside try");
+            Log.v(TAG, " send() from " + from + " to " + to + " message " + msg + " reg id " + contactplus.getRegId());
+            Log.v(TAG, "printing params "+params.get(0)+" / "+params.get(1)+" / "+params.get(2)+" / "+params.get(3));
+
+        //myRegisterApiService.sendone(msg, contactplus.getRegId(), from, to).execute();
+
+            myRegisterApiService.sendone(params).execute();
+
+        }
+        catch (IOException io){
+            //msg = "message not sent";
+            Log.v(TAG, "i've been caught");
+
+        }
+
+        Log.v(TAG, "after try n catch");
 
 
+        Log.v(TAG, " send() from " + from + " to " + to + " message " + msg + " reg id " + contactplus.getRegId());
+
+/*
             if (msgSendService == null) {
+
                 Messaging.Builder builder = new Messaging.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
                         // Need setRootUrl and setGoogleClientRequestInitializer only for local testing,
@@ -229,9 +199,6 @@ public final class ServerUtilities {
 
                 msgSendService = builder.build();
 
-
-
-
             }
 
                 try {
@@ -245,10 +212,12 @@ public final class ServerUtilities {
 
                     Log.v(TAG, " send() from " + from + " to " + to + " message " + msg + " reg id " + contactplus.getRegId());
                    //msgSendService.MessagingEndpoint.SendOneMessage(msg, contactplus.getRegId(), from, to);
+
+                    msgSendService.sendone(msg, contactplus.getRegId(), from, to);
                    // msgSendService.
 
-                    msgSendService.messagingEndpoint().sendOneMessage(msg, contactplus.getRegId(), from, to);
-                    msgSendService.messagingEndpoint().sendMessage(msg);
+                    //msgSendService.messagingEndpoint().sendOneMessage(msg, contactplus.getRegId(), from, to);
+                    //msgSendService.messagingEndpoint().sendMessage(msg);
                     //msgSendService.MessagingEndpoint
                     //com.ramogi.xbox.backend.messaging.Messaging.MessagingEndpoint.SendOneMessage(msg, contactplus.getRegId(), from, to);.
                     //SendOneMessage(msg, contactplus.getRegId(), from, to);
@@ -258,6 +227,8 @@ public final class ServerUtilities {
                     //msg = "message not sent";
 
                 }
+
+                */
 
 
 
@@ -271,88 +242,5 @@ public final class ServerUtilities {
 
     }
 
-    /**
-     * Issue a POST request to the com.approx.messenger.com.approx.messenger.server.
-     *
-     * @param endpoint POST address.
-     * @param params request parameters.
-     *
-     * @throws IOException propagated from POST.
-     */
 
-    /*
-    private static void post(String endpoint, Map<String, String> params) throws IOException {
-        URL url;
-        try {
-            url = new URL(endpoint);
-        } catch (MalformedURLException e) {
-            throw new IllegalArgumentException("invalid url: " + endpoint);
-        }
-        StringBuilder bodyBuilder = new StringBuilder();
-        Iterator<Entry<String, String>> iterator = params.entrySet().iterator();
-        // constructs the POST body using the parameters
-        while (iterator.hasNext()) {
-            Entry<String, String> param = iterator.next();
-            bodyBuilder.append(param.getKey()).append('=').append(param.getValue());
-            if (iterator.hasNext()) {
-                bodyBuilder.append('&');
-            }
-        }
-        String body = bodyBuilder.toString();
-        //Log.v(TAG, "Posting '" + body + "' to " + url);
-        byte[] bytes = body.getBytes();
-        HttpURLConnection conn = null;
-        try {
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(true);
-            conn.setUseCaches(false);
-            conn.setFixedLengthStreamingMode(bytes.length);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-            // post the request
-            OutputStream out = conn.getOutputStream();
-            out.write(bytes);
-            out.close();
-            // handle the response
-            int status = conn.getResponseCode();
-            if (status != 200) {
-              throw new IOException("Post failed with error code " + status);
-            }
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-      }
-
-      */
-    
-    /** Issue a POST with exponential backoff */
-
-    /*
-    private static void post(String endpoint, Map<String, String> params, int maxAttempts) throws IOException {
-    	long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
-    	for (int i = 1; i <= maxAttempts; i++) {
-    		//Log.d(TAG, "Attempt #" + i);
-    		try {
-    			post(endpoint, params);
-    			return;
-    		} catch (IOException e) {
-    			//Log.e(TAG, "Failed on attempt " + i + ":" + e);
-    			if (i == maxAttempts) {
-    				throw e;
-                }
-                try {
-                    Thread.sleep(backoff);
-                } catch (InterruptedException e1) {
-                    Thread.currentThread().interrupt();
-                    return;
-                }
-                backoff *= 2;    			
-    		} catch (IllegalArgumentException e) {
-    			throw new IOException(e.getMessage(), e);
-    		}
-    	}
-    }
-    */
 }

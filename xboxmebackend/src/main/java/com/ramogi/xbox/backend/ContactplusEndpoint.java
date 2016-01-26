@@ -46,7 +46,7 @@ public class ContactplusEndpoint {
 
     private static final Logger logger = Logger.getLogger(ContactplusEndpoint.class.getName());
 
-    //private static final Logger log = Logger.getLogger(MessagingEndpoint.class.getName());
+    //private static final Logger logger = Logger.getLogger(MessagingEndpoint.class.getName());
 
     private static final int DEFAULT_LIST_LIMIT = 20;
 
@@ -167,5 +167,92 @@ public class ContactplusEndpoint {
         } catch (com.googlecode.objectify.NotFoundException e) {
             throw new NotFoundException("Could not find Contactplus with ID: " + email);
         }
+    }
+
+
+    /**
+     *  @param params
+     */
+    @ApiMethod(
+            name = "sendone",
+            path = "sendone",
+            httpMethod = ApiMethod.HttpMethod.POST)
+
+    //public void sendOneMessage(@Named("message") String message,@Named("regid")String regid,
+                             //  @Named("from") String from, @Named("to") String to) throws IOException {
+
+    public void sendOneMessage(@Named("params") ArrayList<String> params) throws IOException {
+
+        logger.warning(" params size "+params.size());
+        logger.warning(" zero is msg "+params.get(0));
+        logger.warning(" one is regid "+params.get(1));
+        logger.warning(" two is from "+params.get(2));
+        logger.warning(" three is to "+params.get(3));
+
+
+        //logger.warning("sendOneMessage called");
+        //logger.warning(" send() from " + from + " to " + to + " message " + message + " reg id " +regid);
+
+        ///logger.warning(message+" / "+regid+" / "+from+" / "+to);
+
+        String message = params.get(0);
+        String regid = params.get(1);
+        String from = params.get(2);
+        String to = params.get(3);
+
+        logger.warning(" send() from " + from + " to " + to + " message " + message + " reg id " +regid);
+
+        if (message == null || message.trim().length() == 0) {
+            logger.warning("Not sending message because it is empty");
+            return;
+        }
+        // crop longer messages
+        if (message.length() > 1000) {
+            message = message.substring(0, 1000) + "[...]";
+        }
+        Sender sender = new Sender(API_KEY);
+        Message msg = new Message.Builder()
+//			.delayWhileIdle(true)
+                .addData(com.ramogi.xbox.backend.Constants.TO, to)
+                .addData(com.ramogi.xbox.backend.Constants.FROM, from)
+                .addData(com.ramogi.xbox.backend.Constants.MSG, message)
+                .build();
+
+        try{
+
+            Result result = sender.send(msg,regid,5);
+
+            Contactplus contactplus = new Contactplus();
+            contactplus.setRegId(regid);
+            contactplus.setEmail(from);
+            if (result.getMessageId() != null) {
+                logger.info("Message sent to " + regid);
+                String canonicalRegId = result.getCanonicalRegistrationId();
+                if (canonicalRegId != null) {
+                    // if the regId changed, we have to update the datastore
+                    //logger.info("Registration Id changed for " + regid + " updating to " + canonicalRegId);
+                    //record.setRegId(canonicalRegId);
+                    // ofy().save().entity(record).now();
+                    contactplus.setRegId(canonicalRegId);
+                    ofy().save().entity(contactplus).now();
+
+                }
+            } else {
+                String error = result.getErrorCodeName();
+                if (error.equals(Constants.ERROR_NOT_REGISTERED)) {
+                    logger.warning("Registration Id " + regid + " no longer registered with GCM, removing from datastore");
+                    //if the device is no longer registered with Gcm, remove it from the datastore
+                    //ofy().delete().entity(record).now();
+                    ofy().delete().entity(contactplus).now();
+                } else {
+                    logger.warning("Error when sending message : " + error);
+                }
+            }
+
+            logger.info("Result: " + result.toString());
+        } catch (IOException e) {
+            logger.warning( e.getMessage());
+        }
+
     }
 }

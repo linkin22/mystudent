@@ -22,10 +22,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+
+import com.google.api.client.util.DateTime;
 import com.ramogi.xboxme.client.GcmUtil;
 import com.ramogi.xboxme.client.ServerUtilities;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author appsrox.com
@@ -113,7 +118,14 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
 	@Override
 	public String getProfileEmail() {
 		return profileEmail;
-	}	
+	}
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 	
 	private void send(final String txt) {
         new AsyncTask<Void, Void, String>() {
@@ -123,9 +135,10 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
                 try {
                     ServerUtilities.send(txt, profileEmail, Common.getPreferredEmail());
                     
-        			ContentValues values = new ContentValues(2);
+        			ContentValues values = new ContentValues(3);
         			values.put(DataProvider.COL_MSG, txt);
         			values.put(DataProvider.COL_TO, profileEmail);
+                    values.put(DataProvider.COL_AT, getDateTime());
         			getContentResolver().insert(DataProvider.CONTENT_URI_MESSAGES, values);
 					Log.v("Chat activity ", " is message sent?");
         			

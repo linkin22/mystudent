@@ -20,6 +20,10 @@ import com.ramogi.xboxme.Common;
 import com.ramogi.xboxme.DataProvider;
 import com.ramogi.xboxme.MainActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * @author appsrox.com
  *
@@ -52,9 +56,10 @@ public class GcmBroadcastReceiver extends BroadcastReceiver {
 				String msg = intent.getStringExtra(DataProvider.COL_MSG);
 				String email = intent.getStringExtra(DataProvider.COL_FROM);
 				
-				ContentValues values = new ContentValues(2);
+				ContentValues values = new ContentValues(3);
 				values.put(DataProvider.COL_MSG, msg);
 				values.put(DataProvider.COL_FROM, email);
+				values.put(DataProvider.COL_AT, getDateTime());
 				context.getContentResolver().insert(DataProvider.CONTENT_URI_MESSAGES, values);
 				
 				if (Common.isNotify()) {
@@ -67,7 +72,15 @@ public class GcmBroadcastReceiver extends BroadcastReceiver {
 			mWakeLock.release();
 		}
 	}
-	
+
+	private String getDateTime() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+		Date date = new Date();
+		return dateFormat.format(date);
+	}
+
+
 	private void sendNotification(String text, boolean launchApp) {
 		NotificationManager mNotificationManager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
 		

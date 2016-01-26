@@ -11,6 +11,7 @@ import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 
 import java.io.IOException;
@@ -89,10 +90,21 @@ public class MessagingEndpoint {
         }
     }
 
+    /**
+     *  @param regid The Google Cloud Messaging registration Id to add
+     *  @param message The Google Cloud Messaging registration Id to add
+     *  @param from The Google Cloud Messaging registration Id to add
+     *  @param to The Google Cloud Messaging registration Id to add
+     */
+    @ApiMethod(
+            name = "sendone",
+            path = "sendone",
+            httpMethod = ApiMethod.HttpMethod.POST)
+
     public void sendOneMessage(@Named("message") String message,@Named("regid")String regid,
                                @Named("from") String from, @Named("to") String to) throws IOException {
 
-        log.warning("sendOneMessage called");
+        //log.warning("sendOneMessage called");
         log.warning(" send() from " + from + " to " + to + " message " + message + " reg id " +regid);
 
         if (message == null || message.trim().length() == 0) {
