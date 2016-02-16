@@ -12,6 +12,7 @@ import java.util.Date;
 @Entity
 public class Student {
 
+
     @Id
     Long id;
     private String parentemail;

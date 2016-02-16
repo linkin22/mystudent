@@ -20,6 +20,11 @@ public class Role {
     private Date lastmodified;
     private String displayname;
     private String fullname;
+    private String phone;
+    private double latx;
+    private double laty;
+    private String photourl;
+    private String regid;
 
     public String getEmail() {
         return email;
@@ -78,6 +83,43 @@ public class Role {
         this.lastmodified = lastmodified;
     }
 
+    public String getPhone() {
+        return phone;
+    }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
+    public double getLatx() {
+        return latx;
+    }
+
+    public void setLatx(double latx) {
+        this.latx = latx;
+    }
+
+    public double getLaty() {
+        return laty;
+    }
+
+    public void setLaty(double laty) {
+        this.laty = laty;
+    }
+
+    public String getPhotourl() {
+        return photourl;
+    }
+
+    public void setPhotourl(String photourl) {
+        this.photourl = photourl;
+    }
+
+    public String getRegid() {
+        return regid;
+    }
+
+    public void setRegid(String regid) {
+        this.regid = regid;
+    }
 }

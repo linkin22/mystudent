@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/XboxMe.iml" filepath="$PROJECT_DIR$/XboxMe.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mystudent.iml" filepath="$PROJECT_DIR$/mystudent.iml" />
       <module fileurl="file://$PROJECT_DIR$/teacher/teacher.iml" filepath="$PROJECT_DIR$/teacher/teacher.iml" />
       <module fileurl="file://$PROJECT_DIR$/xboxmebackend/xboxmebackend.iml" filepath="$PROJECT_DIR$/xboxmebackend/xboxmebackend.iml" />
     </modules>

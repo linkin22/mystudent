@@ -12,11 +12,15 @@ import java.net.URI;
  */
 @Entity
 public class Teacher {
+
+
     @Id
     private String email;
     private String tname;
     private String tschool;
-    private int tmobile;
+    private String classes;
+    private String subject;
+    private String tmobile;
     private Date tcreated;
     private Date tdob;
     private String gender;
@@ -47,11 +51,11 @@ public class Teacher {
         this.tcreated = tcreated;
     }
 
-    public int getTmobile() {
+    public String getTmobile() {
         return tmobile;
     }
 
-    public void setTmobile(int tmobile) {
+    public void setTmobile(String tmobile) {
         this.tmobile = tmobile;
     }
 

@@ -19,6 +19,10 @@ public class Unknown {
     private Date created;
     private String status;
     private Date responded;
+    private String photourl;
+    private String phone;
+    private double latx;
+    private double laty;
 
     public String getEmail() {
         return email;
@@ -68,4 +72,35 @@ public class Unknown {
         this.displayname = displayname;
     }
 
+    public String getPhotourl() {
+        return photourl;
+    }
+
+    public void setPhotourl(String photourl) {
+        this.photourl = photourl;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public double getLatx() {
+        return latx;
+    }
+
+    public void setLatx(double latx) {
+        this.latx = latx;
+    }
+
+    public double getLaty() {
+        return laty;
+    }
+
+    public void setLaty(double laty) {
+        this.laty = laty;
+    }
 }

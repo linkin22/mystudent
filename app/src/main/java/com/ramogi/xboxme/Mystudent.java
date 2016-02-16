@@ -251,6 +251,8 @@ public class Mystudent extends AppCompatActivity implements
             setAccountName(acct.getEmail());
             //uploadLocation();
             updateUI(true);
+            uploadLocation();
+            queryRole(getCurrentUserEmail());
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
@@ -264,6 +266,8 @@ public class Mystudent extends AppCompatActivity implements
     public void onConnected(Bundle connectionHint) {
         // Reaching onConnected means we consider the user signed in.
         // Log.i("onConnected callback " ," onConnected");
+
+
 
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
@@ -355,8 +359,8 @@ public class Mystudent extends AppCompatActivity implements
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 //            findViewById(R.id.locationbtn).setEnabled(true);
 
-            uploadLocation();
-            queryRole(getCurrentUserEmail());
+            //uploadLocation();
+            //queryRole(getCurrentUserEmail());
 
         } else {
             mStatusTextView.setText(R.string.signed_out);
