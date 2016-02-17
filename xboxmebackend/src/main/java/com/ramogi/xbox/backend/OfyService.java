@@ -18,6 +18,15 @@ public class OfyService {
         ObjectifyService.register(Unknown.class);
         ObjectifyService.register(Student.class);
         ObjectifyService.register(Contactplus.class);
+        ObjectifyService.register(classes.class);
+        ObjectifyService.register(examdetails.class);
+        ObjectifyService.register(examsummary.class);
+        ObjectifyService.register(feesone.class);
+        ObjectifyService.register(feestwo.class);
+        ObjectifyService.register(feesthree.class);
+        ObjectifyService.register(subjects.class);
+        ObjectifyService.register(schoolreg.class);
+        ObjectifyService.register(schooldetails.class);
     }
 
     public static Objectify ofy() {

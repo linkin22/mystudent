@@ -6,22 +6,21 @@ import com.googlecode.objectify.annotation.Index;
 
 import java.util.Date;
 
+
 /**
- * Created by rochola on 16/02/2016.
+ * Created by ROchola on 2/17/2016.
  */
 @Entity
-public class subjects {
+public class examdetails {
 
     @Id
     private Long id;
     private String schoolname;
-    private String classes;
-    private Date createdate;
-    private String createdby;
+    private String regno;
+    private String subjectname;
     private String marks;
     private String grade;
     private String comments;
-    private String subjectname;
 
     public Long getId() {
         return id;
@@ -29,14 +28,6 @@ public class subjects {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getSubjectname() {
-        return subjectname;
-    }
-
-    public void setSubjectname(String subjectname) {
-        this.subjectname = subjectname;
     }
 
     public String getSchoolname() {
@@ -47,28 +38,20 @@ public class subjects {
         this.schoolname = schoolname;
     }
 
-    public String getClasses() {
-        return classes;
+    public String getRegno() {
+        return regno;
     }
 
-    public void setClasses(String classes) {
-        this.classes = classes;
+    public void setRegno(String regno) {
+        this.regno = regno;
     }
 
-    public Date getCreatedate() {
-        return createdate;
+    public String getSubjectname() {
+        return subjectname;
     }
 
-    public void setCreatedate(Date createdate) {
-        this.createdate = createdate;
-    }
-
-    public String getCreatedby() {
-        return createdby;
-    }
-
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
+    public void setSubjectname(String subjectname) {
+        this.subjectname = subjectname;
     }
 
     public String getMarks() {

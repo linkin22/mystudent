@@ -21,7 +21,10 @@
                 com.ramogi.xbox.backend.ContactplusEndpoint,
                 com.ramogi.xbox.backend.schooldetailsEndpoint,
                 com.ramogi.xbox.backend.schoolregEndpoint, com.ramogi.xbox.backend.classesEndpoint,
-                com.ramogi.xbox.backend.subjectsEndpoint</param-value>
+                com.ramogi.xbox.backend.subjectsEndpoint, com.ramogi.xbox.backend.feesoneEndpoint,
+                com.ramogi.xbox.backend.feesthreeEndpoint, com.ramogi.xbox.backend.feestwoEndpoint,
+                com.ramogi.xbox.backend.examdetailsEndpoint,
+                com.ramogi.xbox.backend.examsummaryEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

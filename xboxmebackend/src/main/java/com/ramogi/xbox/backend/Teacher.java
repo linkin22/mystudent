@@ -20,12 +20,27 @@ public class Teacher {
     private String tschool;
     private String classes;
     private String subject;
-    private String tmobile;
+    private int  tmobile;
     private Date tcreated;
     private Date tdob;
     private String gender;
     private String createdby;
 
+    public String getClasses() {
+        return classes;
+    }
+
+    public void setClasses(String classes) {
+        this.classes = classes;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
     public String getGender() {
         return gender;
@@ -51,11 +66,11 @@ public class Teacher {
         this.tcreated = tcreated;
     }
 
-    public String getTmobile() {
+    public int getTmobile() {
         return tmobile;
     }
 
-    public void setTmobile(String tmobile) {
+    public void setTmobile(int tmobile) {
         this.tmobile = tmobile;
     }
 

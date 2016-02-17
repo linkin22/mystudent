@@ -27,101 +27,101 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
  * DO NOT deploy this code unchanged as part of a real application to real users.
  */
 @Api(
-        name = "subjectsApi",
+        name = "feestwoApi",
         version = "v1",
-        resource = "subjects",
+        resource = "feestwo",
         namespace = @ApiNamespace(
                 ownerDomain = "backend.xbox.ramogi.com",
                 ownerName = "backend.xbox.ramogi.com",
                 packagePath = ""
         )
 )
-public class subjectsEndpoint {
+public class feestwoEndpoint {
 
-    private static final Logger logger = Logger.getLogger(subjectsEndpoint.class.getName());
+    private static final Logger logger = Logger.getLogger(feestwoEndpoint.class.getName());
 
     private static final int DEFAULT_LIST_LIMIT = 20;
 
     static {
         // Typically you would register this inside an OfyServive wrapper. See: https://code.google.com/p/objectify-appengine/wiki/BestPractices
-        ObjectifyService.register(subjects.class);
+        ObjectifyService.register(feestwo.class);
     }
 
     /**
-     * Returns the {@link subjects} with the corresponding ID.
+     * Returns the {@link feestwo} with the corresponding ID.
      *
-     * @param id the ID of the entity to be retrieved
+     * @param regno the ID of the entity to be retrieved
      * @return the entity with the corresponding ID
-     * @throws NotFoundException if there is no {@code subjects} with the provided ID.
+     * @throws NotFoundException if there is no {@code feestwo} with the provided ID.
      */
     @ApiMethod(
             name = "get",
-            path = "subjects/{id}",
+            path = "feestwo/{regno}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public subjects get(@Named("id") Long id) throws NotFoundException {
-        logger.info("Getting subjects with ID: " + id);
-        subjects subjects = ofy().load().type(subjects.class).id(id).now();
-        if (subjects == null) {
-            throw new NotFoundException("Could not find subjects with ID: " + id);
+    public feestwo get(@Named("regno") String regno) throws NotFoundException {
+        logger.info("Getting feestwo with ID: " + regno);
+        feestwo feestwo = ofy().load().type(feestwo.class).id(regno).now();
+        if (feestwo == null) {
+            throw new NotFoundException("Could not find feestwo with ID: " + regno);
         }
-        return subjects;
+        return feestwo;
     }
 
     /**
-     * Inserts a new {@code subjects}.
+     * Inserts a new {@code feestwo}.
      */
     @ApiMethod(
             name = "insert",
-            path = "subjects",
+            path = "feestwo",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public subjects insert(subjects subjects) {
+    public feestwo insert(feestwo feestwo) {
         // Typically in a RESTful API a POST does not have a known ID (assuming the ID is used in the resource path).
-        // You should validate that subjects.id has not been set. If the ID type is not supported by the
+        // You should validate that feestwo.regno has not been set. If the ID type is not supported by the
         // Objectify ID generator, e.g. long or String, then you should generate the unique ID yourself prior to saving.
         //
         // If your client provides the ID then you should probably use PUT instead.
-        ofy().save().entity(subjects).now();
-        logger.info("Created subjects with ID: " + subjects.getId());
+        ofy().save().entity(feestwo).now();
+        logger.info("Created feestwo with ID: " + feestwo.getRegno());
 
-        return ofy().load().entity(subjects).now();
+        return ofy().load().entity(feestwo).now();
     }
 
     /**
-     * Updates an existing {@code subjects}.
+     * Updates an existing {@code feestwo}.
      *
-     * @param id       the ID of the entity to be updated
-     * @param subjects the desired state of the entity
+     * @param regno   the ID of the entity to be updated
+     * @param feestwo the desired state of the entity
      * @return the updated version of the entity
-     * @throws NotFoundException if the {@code id} does not correspond to an existing
-     *                           {@code subjects}
+     * @throws NotFoundException if the {@code regno} does not correspond to an existing
+     *                           {@code feestwo}
      */
     @ApiMethod(
             name = "update",
-            path = "subjects/{id}",
+            path = "feestwo/{regno}",
             httpMethod = ApiMethod.HttpMethod.PUT)
-    public subjects update(@Named("id") Long id, subjects subjects) throws NotFoundException {
+    public feestwo update(@Named("regno") String regno, feestwo feestwo) throws NotFoundException {
         // TODO: You should validate your ID parameter against your resource's ID here.
-        checkExists(id);
-        ofy().save().entity(subjects).now();
-        logger.info("Updated subjects: " + subjects);
-        return ofy().load().entity(subjects).now();
+        checkExists(regno);
+        ofy().save().entity(feestwo).now();
+        logger.info("Updated feestwo: " + feestwo);
+        return ofy().load().entity(feestwo).now();
     }
 
     /**
-     * Deletes the specified {@code subjects}.
+     * Deletes the specified {@code feestwo}.
      *
-     * @param id the ID of the entity to delete
-     * @throws NotFoundException if the {@code id} does not correspond to an existing
-     *                           {@code subjects}
+     * @param regno the ID of the entity to delete
+     * @throws NotFoundException if the {@code regno} does not correspond to an existing
+     *                           {@code feestwo}
      */
     @ApiMethod(
             name = "remove",
-            path = "subjects/{id}",
+            path = "feestwo/{regno}",
             httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void remove(@Named("id") Long id) throws NotFoundException {
-        checkExists(id);
-        ofy().delete().type(subjects.class).id(id).now();
-        logger.info("Deleted subjects with ID: " + id);
+    public void remove(@Named("regno") String regno) throws NotFoundException {
+        checkExists(regno);
+        ofy().delete().type(feestwo.class).id(regno).now();
+        logger.info("Deleted feestwo with ID: " + regno);
     }
 
     /**
@@ -133,27 +133,27 @@ public class subjectsEndpoint {
      */
     @ApiMethod(
             name = "list",
-            path = "subjects",
+            path = "feestwo",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public CollectionResponse<subjects> list(@Nullable @Named("cursor") String cursor, @Nullable @Named("limit") Integer limit) {
+    public CollectionResponse<feestwo> list(@Nullable @Named("cursor") String cursor, @Nullable @Named("limit") Integer limit) {
         limit = limit == null ? DEFAULT_LIST_LIMIT : limit;
-        Query<subjects> query = ofy().load().type(subjects.class).limit(limit);
+        Query<feestwo> query = ofy().load().type(feestwo.class).limit(limit);
         if (cursor != null) {
             query = query.startAt(Cursor.fromWebSafeString(cursor));
         }
-        QueryResultIterator<subjects> queryIterator = query.iterator();
-        List<subjects> subjectsList = new ArrayList<subjects>(limit);
+        QueryResultIterator<feestwo> queryIterator = query.iterator();
+        List<feestwo> feestwoList = new ArrayList<feestwo>(limit);
         while (queryIterator.hasNext()) {
-            subjectsList.add(queryIterator.next());
+            feestwoList.add(queryIterator.next());
         }
-        return CollectionResponse.<subjects>builder().setItems(subjectsList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
+        return CollectionResponse.<feestwo>builder().setItems(feestwoList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
 
-    private void checkExists(Long id) throws NotFoundException {
+    private void checkExists(String regno) throws NotFoundException {
         try {
-            ofy().load().type(subjects.class).id(id).safe();
+            ofy().load().type(feestwo.class).id(regno).safe();
         } catch (com.googlecode.objectify.NotFoundException e) {
-            throw new NotFoundException("Could not find subjects with ID: " + id);
+            throw new NotFoundException("Could not find feestwo with ID: " + regno);
         }
     }
 }
