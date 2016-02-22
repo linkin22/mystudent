@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:fillViewport="false"
+        android:id="@+id/scrollView" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:layout_width="248dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:hint="Registration Number"
+                android:id="@+id/addStudentAdmno" />
+
+            <EditText
+                android:layout_width="248dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/addStudentAdmno"
+                android:inputType="textPersonName"
+                android:hint="Name"
+                android:ems="10"
+                android:id="@+id/addStudentName" />
+
+            <EditText
+                android:layout_width="248dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:layout_centerHorizontal="true"
+                android:hint="Parent's Phone"
+                android:layout_below="@+id/addSchoolEmail"
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/addParentPhone" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/addStudentSchool"
+                android:hint="Student date of birth"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/studentdob" />
+
+            <EditText
+                android:layout_width="248dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below = "@+id/addParentPhone"
+                android:hint="School Name"
+                android:id="@+id/addStudentSchool" />
+
+            <EditText
+                android:layout_width="248dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:hint="School email"
+                android:layout_below="@+id/addStudentName"
+                android:layout_centerHorizontal="true"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/addSchoolEmail" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/submit"
+                android:id="@+id/addStudentBtn"
+                android:layout_below="@+id/studentdob"
+                android:layout_centerHorizontal="true" />
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

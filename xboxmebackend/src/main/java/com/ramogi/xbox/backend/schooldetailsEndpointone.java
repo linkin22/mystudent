@@ -36,9 +36,9 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
                 packagePath = ""
         )
 )
-public class schooldetailsEndpoint {
+public class schooldetailsEndpointone {
 
-    private static final Logger logger = Logger.getLogger(schooldetailsEndpoint.class.getName());
+    private static final Logger logger = Logger.getLogger(schooldetailsEndpointone.class.getName());
 
     private static final int DEFAULT_LIST_LIMIT = 20;
 
@@ -50,19 +50,19 @@ public class schooldetailsEndpoint {
     /**
      * Returns the {@link schooldetails} with the corresponding ID.
      *
-     * @param adminemail the ID of the entity to be retrieved
+     * @param schoolname the ID of the entity to be retrieved
      * @return the entity with the corresponding ID
      * @throws NotFoundException if there is no {@code schooldetails} with the provided ID.
      */
     @ApiMethod(
             name = "get",
-            path = "schooldetails/{adminemail}",
+            path = "schooldetails/{schoolname}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public schooldetails get(@Named("adminemail") String adminemail) throws NotFoundException {
-        logger.info("Getting schooldetails with ID: " + adminemail);
-        schooldetails schooldetails = ofy().load().type(schooldetails.class).id(adminemail).now();
+    public schooldetails get(@Named("schoolname") String schoolname) throws NotFoundException {
+        logger.info("Getting schooldetails with ID: " + schoolname);
+        schooldetails schooldetails = ofy().load().type(schooldetails.class).id(schoolname).now();
         if (schooldetails == null) {
-            throw new NotFoundException("Could not find schooldetails with ID: " + adminemail);
+            throw new NotFoundException("Could not find schooldetails with ID: " + schoolname);
         }
         return schooldetails;
     }
@@ -76,12 +76,12 @@ public class schooldetailsEndpoint {
             httpMethod = ApiMethod.HttpMethod.POST)
     public schooldetails insert(schooldetails schooldetails) {
         // Typically in a RESTful API a POST does not have a known ID (assuming the ID is used in the resource path).
-        // You should validate that schooldetails.adminemail has not been set. If the ID type is not supported by the
+        // You should validate that schooldetails.schoolname has not been set. If the ID type is not supported by the
         // Objectify ID generator, e.g. long or String, then you should generate the unique ID yourself prior to saving.
         //
         // If your client provides the ID then you should probably use PUT instead.
         ofy().save().entity(schooldetails).now();
-        logger.info("Created schooldetails with ID: " + schooldetails.getAdminemail());
+        logger.info("Created schooldetails with ID: " + schooldetails.getSchoolname());
 
         return ofy().load().entity(schooldetails).now();
     }
@@ -89,19 +89,19 @@ public class schooldetailsEndpoint {
     /**
      * Updates an existing {@code schooldetails}.
      *
-     * @param adminemail    the ID of the entity to be updated
+     * @param schoolname    the ID of the entity to be updated
      * @param schooldetails the desired state of the entity
      * @return the updated version of the entity
-     * @throws NotFoundException if the {@code adminemail} does not correspond to an existing
+     * @throws NotFoundException if the {@code schoolname} does not correspond to an existing
      *                           {@code schooldetails}
      */
     @ApiMethod(
             name = "update",
-            path = "schooldetails/{adminemail}",
+            path = "schooldetails/{schoolname}",
             httpMethod = ApiMethod.HttpMethod.PUT)
-    public schooldetails update(@Named("adminemail") String adminemail, schooldetails schooldetails) throws NotFoundException {
+    public schooldetails update(@Named("schoolname") String schoolname, schooldetails schooldetails) throws NotFoundException {
         // TODO: You should validate your ID parameter against your resource's ID here.
-        checkExists(adminemail);
+        checkExists(schoolname);
         ofy().save().entity(schooldetails).now();
         logger.info("Updated schooldetails: " + schooldetails);
         return ofy().load().entity(schooldetails).now();
@@ -110,18 +110,18 @@ public class schooldetailsEndpoint {
     /**
      * Deletes the specified {@code schooldetails}.
      *
-     * @param adminemail the ID of the entity to delete
-     * @throws NotFoundException if the {@code adminemail} does not correspond to an existing
+     * @param schoolname the ID of the entity to delete
+     * @throws NotFoundException if the {@code schoolname} does not correspond to an existing
      *                           {@code schooldetails}
      */
     @ApiMethod(
             name = "remove",
-            path = "schooldetails/{adminemail}",
+            path = "schooldetails/{schoolname}",
             httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void remove(@Named("adminemail") String adminemail) throws NotFoundException {
-        checkExists(adminemail);
-        ofy().delete().type(schooldetails.class).id(adminemail).now();
-        logger.info("Deleted schooldetails with ID: " + adminemail);
+    public void remove(@Named("schoolname") String schoolname) throws NotFoundException {
+        checkExists(schoolname);
+        ofy().delete().type(schooldetails.class).id(schoolname).now();
+        logger.info("Deleted schooldetails with ID: " + schoolname);
     }
 
     /**
@@ -149,11 +149,11 @@ public class schooldetailsEndpoint {
         return CollectionResponse.<schooldetails>builder().setItems(schooldetailsList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
 
-    private void checkExists(String adminemail) throws NotFoundException {
+    private void checkExists(String schoolname) throws NotFoundException {
         try {
-            ofy().load().type(schooldetails.class).id(adminemail).safe();
+            ofy().load().type(schooldetails.class).id(schoolname).safe();
         } catch (com.googlecode.objectify.NotFoundException e) {
-            throw new NotFoundException("Could not find schooldetails with ID: " + adminemail);
+            throw new NotFoundException("Could not find schooldetails with ID: " + schoolname);
         }
     }
 }

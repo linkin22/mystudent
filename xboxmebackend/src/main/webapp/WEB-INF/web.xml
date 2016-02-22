@@ -19,7 +19,7 @@
                 com.ramogi.xbox.backend.TeacherEndpoint, com.ramogi.xbox.backend.RoleEndpoint,
                 com.ramogi.xbox.backend.UnknownEndpoint, com.ramogi.xbox.backend.StudentEndpoint,
                 com.ramogi.xbox.backend.ContactplusEndpoint,
-                com.ramogi.xbox.backend.schooldetailsEndpoint,
+                com.ramogi.xbox.backend.schooldetailsEndpointone,
                 com.ramogi.xbox.backend.schoolregEndpoint, com.ramogi.xbox.backend.classesEndpoint,
                 com.ramogi.xbox.backend.subjectsEndpoint, com.ramogi.xbox.backend.feesoneEndpoint,
                 com.ramogi.xbox.backend.feesthreeEndpoint, com.ramogi.xbox.backend.feestwoEndpoint,

@@ -15,9 +15,9 @@ import com.ramogi.xbox.backend.studentApi.model.Student;
 /**
  * Created by ROchola on 1/15/2016.
  */
-public class AddStudentFragment extends Fragment {
+public class AddSchoolFragment extends Fragment {
 
-    public AddStudentFragment(){
+    public AddSchoolFragment(){
 
     }
 

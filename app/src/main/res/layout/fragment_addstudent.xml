@@ -47,7 +47,7 @@
             android:layout_centerHorizontal="true"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/addParentEmail" />
+            android:id="@+id/addSchoolEmail" />
 
         <EditText
             android:layout_width="248dp"
@@ -56,7 +56,7 @@
             android:layout_margin="5dp"
             android:layout_centerHorizontal="true"
             android:hint="Parent's Phone"
-            android:layout_below="@+id/addParentEmail"
+            android:layout_below="@+id/addSchoolEmail"
             android:inputType="phone"
             android:ems="10"
             android:id="@+id/addParentPhone" />

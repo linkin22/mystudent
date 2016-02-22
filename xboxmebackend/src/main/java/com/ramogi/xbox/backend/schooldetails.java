@@ -13,12 +13,12 @@ import java.util.Date;
 public class schooldetails {
 
     @Id
+    private String adminemail;
+    @Index
     private String schoolname;
     private String schoolcomments;
     private double latx;
     private double laty;
-    @Index
-    private String adminemail;
     private String schoolemail;
     private Date createdate;
     private String createdby;
